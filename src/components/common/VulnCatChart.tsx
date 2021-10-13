@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import {
     MDBContainer,
     MDBRow,
@@ -41,7 +41,7 @@ export const CategoryChart = (props: any) => {
                 position: "right",
                 offsetY: 20,
                 offsetX: 10,
-                fontSize: "8px"
+                fontSize: "8px",
             },
             tooltip: {
                 style: {
@@ -102,7 +102,7 @@ export const CategoryChart = (props: any) => {
                     position: "right",
                     offsetY: 20,
                     offsetX: 10,
-                    fontSize: '10px'
+                    fontSize: '10px',
                 },
                 tooltip: {
                     style: {

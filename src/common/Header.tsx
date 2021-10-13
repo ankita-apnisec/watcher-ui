@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState} from "react";
 import { MDBRow, MDBCol, MDBBtn, MDBIcon, MDBContainer, MDBNotification } from "mdbreact";
 import "../components/dashboard/style.css"
 
@@ -56,9 +56,12 @@ export const Header = (props: any) => {
                             message="Alert! GIT repo public"
                             text="56 minutes ago"
                         />
-                        <a style={{ fontSize: "12px", textDecoration: "underline", color: "red" }} onClick={() => {
+                        <a 
+                        style={{ fontSize: "12px", textDecoration: "underline", color: "red" }} 
+                        onClick={() => {
                             setnotificationVisibility(!notificationVisibility); props.SwitchView('alerts')
-                        }}>See all</a>
+                        }}>
+                            See all</a>
                     </MDBContainer> : <MDBContainer style={{ visibility: "hidden" }} className="notification"><MDBNotification
                         show
                         fade

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { Redirect } from 'react-router';
 import { Header } from "../../common/Header";
 import { Home } from "./Home";
@@ -107,25 +107,30 @@ export const Dashboard = (props: any) => {
                                         <MDBIcon icon="chart-line" /> &nbsp;&nbsp;Dashboard
                                    </p>
                                     <p className="side-nav-links" style={{ 
-                                        // opacity: 0.1, 
+                                        opacity: 0.1, 
                                         cursor: "not-allowed" }}
                                   //  onClick={() => Switch('assets')}
                                     >
                                         <MDBIcon icon="database" /> &nbsp;&nbsp;Assets
                                   </p>
                                     <p className="side-nav-links" style={{ 
-                                        // opacity: 0.1,
+                                        opacity: 0.1,
                                          cursor: "not-allowed" }}
                                     // onClick={() => Switch('alerts')}
                                     >
                                         <MDBIcon icon="exclamation-circle" /> &nbsp;&nbsp;Alerts
                                   </p>
-                                    <p className="side-nav-links" onClick={() => Switch('settings')}>
+                                    <p className="side-nav-links"
+                                     onClick={() => Switch('settings')}
+                                    //  style={{ 
+                                    //     opacity: 0.1,
+                                    //      cursor: "not-allowed" }}
+                                         >
                                         <MDBIcon icon="wrench" /> &nbsp;&nbsp;Settings
                                   </p>
                                     <label className="toolLabel">SCM Watcher<MDBIcon style={{ paddingTop: "5px", marginLeft: "7.2vw" }} icon="angle-down" /></label>
                                     <p className="side-nav-links" 
-                                    // style={{ opacity: 0.1, cursor: "not-allowed" }}
+                                    style={{ opacity: 0.1, cursor: "not-allowed" }}
                                     >
                                         <MDBIcon icon="chart-line" /> &nbsp;&nbsp;GIT leaks
                                    </p>

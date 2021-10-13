@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { Redirect } from 'react-router';
 import { Header } from "../../common/Header";
 import {
@@ -434,7 +434,7 @@ export const Home = (props: any) => {
                         <div className="ptest" style={{ cursor: "pointer", border: "1px solid #ededef" }} onClick={() => {
                             props.SwitchView('pentest')
                         }}>
-                            <h6 className="st" style={{ fontWeight: 800, cursor: "pointer" }}>Vulnerability assessment
+                            <h6 className="st" style={{ fontWeight: 800, cursor: "pointer" }}>Vulnerability Assessment
                             <MDBIcon icon="angle-double-right" style={{ fontSize: "15px", marginLeft: "10px", float: "right" }} />
                             </h6>
                             <p style={{ fontSize: "11px", padding: "10px" }}>This pentest is an authorized simulated cyberattack on the primary service of the organisation,

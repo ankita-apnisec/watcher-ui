@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { LoginPage } from "../components/login/LoginPage";
 import { Dashboard } from "../components/dashboard/Dashboard";
@@ -11,13 +11,13 @@ const App: React.FC = () => {
         // console.log(value)
         setUser(value)
     }
-    useEffect(() => {
-        if (user !== undefined) {
-            console.log("success")
-        } else {
-            console.log(user)
-        }
-    }, [user]);
+    // useEffect(() => {
+    //     if (user !== undefined) {
+    //         console.log("success")
+    //     } else {
+    //         console.log(user)
+    //     }
+    // }, [user]);
     return (
         <Router>
             <switch>

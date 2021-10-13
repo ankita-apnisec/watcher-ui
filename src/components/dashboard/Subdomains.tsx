@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from 'react-router';
 import { Header } from "../../common/Header";
 import {

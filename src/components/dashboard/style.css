@@ -68,6 +68,12 @@ ul {
     color: #ff3547;
     font-weight: 700;
 }
+.pendingvbadge {
+    float: right;
+    font-size: 13px;
+    color: #ff9800;
+    font-weight: 700;
+}
 .list-group-item {
     border: 0px !important;
     border-bottom: 1px solid #ededef !important;
@@ -316,9 +322,12 @@ li.onboardSteps {
     display: flex;
     font-size: 12px !important;
 }
-
-
-
+label {
+    font-size: 12px !important;
+}
+i.fa.fa-plug.prefix {
+    font-size: 1.5rem !important;
+}
 .switch {
     position: relative;
     display: inline-block;
