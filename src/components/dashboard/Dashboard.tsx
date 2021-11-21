@@ -39,8 +39,14 @@ export const Dashboard = (props: any) => {
     const [account, setAccount] = useState('DEV');
     const [parameter, setParameter] = useState();
     const [scan, setScan] = useState('');
-    const [dashboardKPI, setDashboardKPI] = useState({ "trial_days_remaining": 15, "metrics": {} });
+    const [dashboardKPI, setDashboardKPI] = useState({ "trial_days_remaining": 15, "metrics": {}, "code": "0" });
     const [signature, setSignature] = useState('');
+
+    const [isvapt, setisvapt] = useState(false);
+    const [iswatcher, setiswatcher] = useState(false);
+    const [isscmwatcher, setisscmwatcher] = useState(false);
+
+
     const token = localStorage.getItem("token");
     const username = localStorage.getItem("username");
     useEffect(() => {
@@ -52,6 +58,22 @@ export const Dashboard = (props: any) => {
                 }
             } else {
             setDashboardKPI(res)
+            if(res.metrics.domains.defaultAccount){
+            setAccount(res.metrics.domains.defaultAccount)}
+            console.log(res.code)
+            console.log(res.code[0])
+            console.log(res.code[1])
+            console.log(res.code[2])
+            if(res.code[0] === "1"){
+                setisvapt(true)
+            }
+            if(res.code[1] === "1"){
+                setiswatcher(true)
+            }
+            if(res.code[2] === "1"){
+                setisscmwatcher(true)
+            }
+           
 
             if (res.message != undefined) {
                 setScan('scan')
@@ -106,25 +128,43 @@ export const Dashboard = (props: any) => {
                                     <p className="side-nav-links" onClick={() => Switch('home')}>
                                         <MDBIcon icon="chart-line" /> &nbsp;&nbsp;Dashboard
                                    </p>
-                                    <p className="side-nav-links" style={{ 
+
+
+                                   { iswatcher === true ?
+                                    <p className="side-nav-links" 
+                                        onClick={() => Switch('assets')} 
+                                    >
+                                        <MDBIcon icon="database" /> &nbsp;&nbsp;Assets
+                                  </p> : <p className="side-nav-links" style={{ 
                                         opacity: 0.1, 
                                         cursor: "not-allowed" }}
-                                  //  onClick={() => Switch('assets')}
                                     >
                                         <MDBIcon icon="database" /> &nbsp;&nbsp;Assets
                                   </p>
+                                    }
+
                                     <p className="side-nav-links" style={{ 
-                                        opacity: 0.1,
-                                         cursor: "not-allowed" }}
-                                    // onClick={() => Switch('alerts')}
+                                        opacity: 0.1, 
+                                        cursor: "not-allowed" }}
                                     >
                                         <MDBIcon icon="exclamation-circle" /> &nbsp;&nbsp;Alerts
                                   </p>
+                                    {/* { dashboardKPI.code === "11000000" ?
+                                    <p className="side-nav-links" 
+                                        onClick={() => Switch('alerts')} 
+                                    >
+                                        <MDBIcon icon="exclamation-circle" /> &nbsp;&nbsp;Alerts
+                                  </p> : <p className="side-nav-links" style={{ 
+                                        opacity: 0.1, 
+                                        cursor: "not-allowed" }}
+                                    >
+                                        <MDBIcon icon="exclamation-circle" /> &nbsp;&nbsp;Alerts
+                                  </p>
+                                    } */}
+
+
                                     <p className="side-nav-links"
                                      onClick={() => Switch('settings')}
-                                    //  style={{ 
-                                    //     opacity: 0.1,
-                                    //      cursor: "not-allowed" }}
                                          >
                                         <MDBIcon icon="wrench" /> &nbsp;&nbsp;Settings
                                   </p>
@@ -177,7 +217,7 @@ export const Dashboard = (props: any) => {
                                             )
                                         case 'home':
                                             return (
-                                                <Home User={props.User} SwitchView={SwitchView} Kpi={dashboardKPI}/>
+                                                <Home isvapt={isvapt} iswatcher={iswatcher} User={props.User} SwitchView={SwitchView} Kpi={dashboardKPI}/>
                                             )
                                         case 'assets':
                                             return (
@@ -189,7 +229,7 @@ export const Dashboard = (props: any) => {
                                         case 'pentest':
                                             return (
                                                 <div>
-                                                    <PhaseSelector Account={account} AccountToggle={Account} Kpi={dashboardKPI}/>
+                                                    {/* <PhaseSelector Account={account} AccountToggle={Account} Kpi={dashboardKPI}/> */}
                                                     <Pentest User={username} SwitchView={SwitchView} Account={account} AccountToggle={Account} Kpi={dashboardKPI}/>
                                                 </div>
                                             )
@@ -209,7 +249,7 @@ export const Dashboard = (props: any) => {
                                         case 'services':
                                             return (
                                                 <div>
-                                                    <MDBContainer fluid style={{ paddingTop: "2vw", paddingLeft: "2vw" }}>
+                                                    {/* <MDBContainer fluid style={{ paddingTop: "2vw", paddingLeft: "2vw" }}>
                                                         <MDBRow>
                                                             <div>
                                                                 <select className="custom-select" style={{ width: "250px" }} onChange={(e: any) => Account(e)} value={account}>
@@ -219,7 +259,7 @@ export const Dashboard = (props: any) => {
                                                                 </select>
                                                             </div>
                                                         </MDBRow>
-                                                    </MDBContainer>
+                                                    </MDBContainer> */}
                                                     <Services User={props.User} SwitchView={SwitchView} Account={account} />
                                                 </div>
                                             )

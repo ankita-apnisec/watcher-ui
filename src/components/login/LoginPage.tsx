@@ -79,7 +79,7 @@ export const LoginPage = (props: any) => {
                 <MDBCol xs="11" sm="10" md="9" lg="8" >
                     <MDBContainer style={{ marginTop: "20vh", marginLeft: "8vh"  }}>
                         <MDBRow>
-                        <p style={{ marginBottom: "10vh", fontWeight: 700 }} className="h1 text-center"><span style={{fontWeight: 600, fontSize: "45px" }}>O</span>nboard to Watcher</p>
+                        <p style={{ marginBottom: "10vh", fontWeight: 700 }} className="h1 text-center"><span style={{fontWeight: 600, fontSize: "45px" }}>L</span>ogin to Watcher</p>
                         </MDBRow>
                         <MDBRow>
                             <MDBCol md="5">

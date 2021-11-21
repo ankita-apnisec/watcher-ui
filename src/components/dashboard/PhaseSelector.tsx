@@ -31,6 +31,7 @@ import "./style.css";
 import domain from '../../assets/images/domain.png'
 import { fetchData } from '../../services/apiConfig'
 export const PhaseSelector = (props: any) => {
+    console.log(props)
     const [AccountList, setAccountList] = useState(props.Kpi.metrics.vapt.defaultQuarter);
     useEffect(() => {
             props.AccountToggle(AccountList);
@@ -49,7 +50,7 @@ export const PhaseSelector = (props: any) => {
     }
     return (
         <>
-            <MDBContainer fluid style={{ paddingTop: "2vw", paddingLeft: "2vw" }}>
+            <MDBContainer fluid style={{ paddingBottom: "2vw"}}>
                 <MDBRow>
                     <div>
                         <select className="custom-select" style={{ width: "250px" }} onChange={(e: any) => AccountT(e)} value={AccountList}>

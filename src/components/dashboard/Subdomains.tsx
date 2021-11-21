@@ -30,12 +30,14 @@ import {
 } from "mdbreact";
 import "./style.css";
 import { fetchData } from '../../services/apiConfig'
+import { useWatch } from "react-hook-form";
 
 export const Subdomains = (props: any) => {
     const [subDomainfullList, setsubDomainfullList] = useState(["subDomains"]);
     const [subDomains, setSubDomains] = useState(["subDomains"]);
     const [collapseID, setCollapseID] = useState("");
     const [vulnerability, setVulnerability] = useState('all');
+    const [isprivate, setisprivate] = useState('all')
     console.log(props)
     useEffect(() => {
         fetchData('subdomain', 'GET', "?accountName=" + props.Account + "&domain=" + props.Domain).then((res: any) => {
@@ -72,6 +74,23 @@ export const Subdomains = (props: any) => {
         })
         setSubDomains(filteredSubDomain)
     }
+    const isPrivate = async (e: any) => {
+        setisprivate(e.target.value);
+        let filter = e.target.value
+        let filteredSubDomain: any = new Array();
+        const response = await subDomainfullList.map((subD: any) => {
+            console.log(subD[filter])
+            if (subD.isPrivate === filter && filter !== 'all') {
+                console.log(subD)
+                filteredSubDomain.push(subD)
+                console.log(filteredSubDomain)
+            } 
+        })
+        if(filter === "all"){
+            filteredSubDomain = subDomainfullList
+        }
+        setSubDomains(filteredSubDomain)
+    }
     const token = localStorage.getItem("token");
     if (token === null || token === undefined || token.length < 0) {
         return <Redirect to={{
@@ -94,20 +113,27 @@ export const Subdomains = (props: any) => {
                     </MDBCol>
                 </MDBRow>
 
-                <MDBRow >
-                    <MDBCol sm="11" md="11" lg="11" style={{ padding: "10px 25px", border: "1px solid #ededef" }}>
+                <MDBRow>
+                    <MDBCol sm="11" md="11" lg="11" style={{ padding: "10px 25px", border: "1px solid #ededef", backgroundColor: "cornsilk" }}>
                         <MDBRow md="12" lg="12" style={{ display: "inline-flex" }}>
                             <p className='text-dark font-weight-bold' style={{ fontSize: "20px", paddingTop: "10px" }}>Sub domains</p>
                             <span className='text-dark' style={{ fontSize: "12px", marginLeft: "10px", paddingTop: "20px" }}>213 available</span>
                         </MDBRow>
                         <MDBRow>
 
-                            <div>
+                            {/* <div>
                                 <select className="custom-select" style={{ width: "250px" }} >
                                     <option value="all" >All</option>
                                     <option value="Sub domain takeover" >Sub domain takeover</option>
                                     <option value="CVE" >CVE</option>
                                     <option value="Leaky directory" >Leaky directory</option>
+                                </select>
+                            </div> */}
+                            <div>
+                            <select className="custom-select" style={{ width: "250px" }} onChange={(e: any) => isPrivate(e)} value={isprivate}>
+                                    <option value="all" >All</option>
+                                    <option value="true" >Private</option>
+                                    <option value="false" >Public</option>
                                 </select>
                             </div>
                             <div style={{ marginLeft: "50px" }}>
@@ -119,22 +145,27 @@ export const Subdomains = (props: any) => {
                                     <option value="lowCount" >Low</option>
                                 </select>
                             </div>
+
+                            {/* <MDBFormInline className="md-form">
+                                    <MDBIcon icon="search" />
+                                    <input className="form-control form-control-sm" type="text" placeholder="Search" aria-label="Search" />
+                                </MDBFormInline> */}
                         </MDBRow>
 
-                        <MDBRow>
+                        {/* <MDBRow>
                             <MDBCol md="6">
                                 <MDBFormInline className="md-form">
                                     <MDBIcon icon="search" />
                                     <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" />
                                 </MDBFormInline>
                             </MDBCol>
-                        </MDBRow>
+                        </MDBRow> */}
                         <div style={{ maxHeight: "65vh", overflowY: "auto", overflowX: "hidden" }}>
                             <ul className="list-group" style={{ listStyle: "none", fontSize: "15px", marginTop: "2vw" }}>
-                                <div>
+                                <div style={{ backgroundColor: "white" }}>
                                     {subDomains.map((subD: any, index: any) =>
-                                        <div>
-                                            <li className="list-group-item-subdomains" onClick={() =>
+                                        <div className="subDomainVulnearbility">
+                                            <li className="list-group-item-pentest" onClick={() =>
                                                 toggleCollapse("collapse" + index++)}>{subD.name}
                                                 <span className="vbadge">{subD.totalCount}  issues &nbsp;
                                                     <i className={collapseID !== "" ? "fa fa-angle-right" : "fa fa-angle-down"} /></span>
@@ -142,19 +173,7 @@ export const Subdomains = (props: any) => {
 
 
                                             <MDBCollapse id={"collapse" + index} isOpen={collapseID}>
-                                                {subD.info ?
-                                                    <div>
-                                                        <MDBRow style={{ color: "gray" }} >
-                                                            <div style={{ marginLeft: "4vw", fontSize: "12px" }}>
-                                                                {(Object.keys(subD.info)).map((key: any) => {
-                                                                    return <div style={{ fontSize: "12px", display: "flex" }}><div className="InfoKey" style={{ fontSize: "12px", width: "20vw", minWidth: "20vw" }}>{key} </div>
-                                                                        {subD.info[key][1] ? <a style={{ marginLeft: "4vw", fontSize: "12px", textDecoration: "underline", cursor: "pointer", color: "cadetblue" }} target="_blank" href={subD.info[key][1]}>{subD.info[key][1]}</a> :
-                                                                            <p style={{ marginLeft: "4vw", fontSize: "12px", color: "#323232", marginBottom: "0px !important" }}>{subD.info[key][0]} </p>}
-                                                                    </div>
-                                                                })}
-                                                            </div>
-                                                        </MDBRow><br /></div> : <div />
-                                                }
+                                               
                                                 {subD.critical ?
                                                     <div>
                                                         <MDBRow style={{ backgroundColor: "#f5c6cb", color: "darkred" }} className="subDomainVulnearbility">
@@ -199,8 +218,21 @@ export const Subdomains = (props: any) => {
                                                             </div>
                                                         </MDBRow><br /></div> : <div />
                                                 }
+                                                 {subD.info ?
+                                                    <div>
+                                                        <MDBRow style={{ color: "gray" }} >
+                                                            <div style={{ marginLeft: "4vw", fontSize: "12px" }}>
+                                                                {(Object.keys(subD.info)).map((key: any) => {
+                                                                    return <div style={{ fontSize: "12px", display: "flex" }}><div className="InfoKey" style={{ fontSize: "12px", width: "20vw", minWidth: "20vw" }}>{key} </div>
+                                                                        {subD.info[key][1] ? <a style={{ marginLeft: "4vw", fontSize: "12px", textDecoration: "underline", cursor: "pointer", color: "cadetblue" }} target="_blank" href={subD.info[key][1]}>{subD.info[key][1]}</a> :
+                                                                            <p style={{ marginLeft: "4vw", fontSize: "12px", color: "#323232", marginBottom: "0px !important" }}>{subD.info[key][0]} </p>}
+                                                                    </div>
+                                                                })}
+                                                            </div>
+                                                        </MDBRow><br /></div> : <div />
+                                                }
                                             </MDBCollapse>
-                                            <hr />
+                                            {/* <hr /> */}
                                         </div>
                                     )}
                                 </div>

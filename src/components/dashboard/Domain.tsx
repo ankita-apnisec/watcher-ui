@@ -23,13 +23,15 @@ import {
     MDBListGroup,
     MDBListGroupItem,
     MDBBreadcrumbItem,
-    MDBBreadcrumb
+    MDBBreadcrumb,
+    MDBBadge
 } from "mdbreact";
 import { useHistory } from "react-router";
 import { Chart } from "react-google-charts";
 import "./style.css";
 import { fetchData } from '../../services/apiConfig'
 export const Domain = (props: any) => {
+    console.log(props)
     const [domains, setDomain] = useState({
         availableDomains: 3,
         lastSynced: "July 02 2021, 20:57:13",
@@ -123,8 +125,10 @@ export const Domain = (props: any) => {
                                         <>
                                             <MDBCol className="domainList" sm="3" md="3" lg="3" onClick={() => SubDomainSwitch(dom.domainName) }>
                                                 <div className="domainCard">
+                                                <MDBBadge className="DomainBadge" color="light">{dom.totalIssues} issues</MDBBadge> 
+                                                    <p style={{ fontSize: "12px", color: "chocolate" }}></p>
                                                     <p className='text-dark font-weight-bold' style={{ fontSize: "20px", marginBlockEnd: "0px" }}>{dom.domainName}</p>
-                                                    <p style={{ fontSize: "12px", color: "chocolate" }}>{dom.totalIssues} issues</p>
+                                                    <span style={{ fontSize: "12px", color: "#dc3912", fontWeight: 600 }}>{dom.totalCriticalIssues} critical issues</span>
                                                 </div>
                                             </MDBCol>
                                             <MDBCol sm="1" md="1" lg="1" ></MDBCol>

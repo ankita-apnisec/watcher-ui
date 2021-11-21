@@ -266,7 +266,7 @@ button.btn-blue-grey.btn.Ripple-parent.back:hover {
     cursor: pointer;
 }
 .domainCard {
-    padding: 20px 8px;
+    padding: 0px 0px 20px 0px
 }
 .penCard {
     padding: 10px 4px;
@@ -405,6 +405,13 @@ span.badge.subDomainBadge {
     box-shadow: 0 0px 0px 0 rgb(0 0 0 / 1%), 0 0px 0px 0 rgb(0 0 0 / 12%) !important;
     margin-top: -10px !important;
     padding: 7px 10px;
+    max-height: 28px !important;
+}
+
+.DomainBadge {
+    box-shadow: 0 0px 0px 0 rgb(0 0 0 / 1%), 0 0px 0px 0 rgb(0 0 0 / 12%) !important;
+    margin-top: -10px !important;
+    padding: 5px 5px;
     max-height: 28px !important;
 }
 
