@@ -28,10 +28,26 @@ import {
 import { useHistory } from "react-router";
 import { Chart } from "react-google-charts";
 import "./style.css"
+import { fetchData } from '../../services/apiConfig'
 export const Services = (props: any) => {
     const token = localStorage.getItem("token");
     console.log(props)
-    if (token === null || token === undefined || token.length <0) {
+    const [services, setServices] = useState([{
+        criticalCount: 0,
+        highCount: 0,
+        lowCount: 0,
+        mediumCount: 0,
+        name: "ElasticBeanstalk_Environment",
+        rootAccount: "231316253142",
+        totalAvailable: 18}]);
+    useEffect(() => {
+        fetchData('services', 'GET', "?accountName=" + props.Account).then((res: any) => {
+            console.log(res)
+            setServices(res)
+        })
+    }, []);
+
+    if (token === null || token === undefined || token.length < 0) {
         return <Redirect to={{
             pathname: '/login',
         }} />
@@ -49,9 +65,30 @@ export const Services = (props: any) => {
                         </MDBBreadcrumb>
                     </MDBCol>
                 </MDBRow>
-                <div style={{ maxHeight: "70vh", overflowY: "auto",  overflowX: "hidden" }}>
+                <div style={{ maxHeight: "75vh", overflowY: "auto", overflowX: "hidden" }}>
                     <MDBRow className="awsRow">
-                        <MDBCol className="awsServices" sm="3" md="3" lg="3" >
+
+                        {
+                            services.map((service: any) =>
+                                <>
+                                    <MDBCol className="awsServices" sm="3" md="3" lg="3" >
+                                        <MDBRow className="serviceCard">
+                                            <MDBCol sm="2" md="2" lg="2" >
+                                                <img className="alignleft" src={"https://cdn.mindmajix.com/blog/images/aws-" + service.name.split("_")[0].toLowerCase() + "-010621.webp"} alt="Amazon S3" width={"40vw"} />
+                                            </MDBCol>
+                                            <MDBCol sm="10" md="10" lg="10" >
+                                                <p className='text-dark font-weight-bold' style={{ fontSize: "15px", marginBlockEnd: "0px" }}>{service.name.replace("_", " ")}</p>
+                                                <p className='text-dark' style={{ fontSize: "12px", marginLeft: "10px" }}>{service.totalAvailable} available</p>
+                                            </MDBCol>
+                                        </MDBRow>
+                                    </MDBCol>
+                                    <MDBCol sm="1" md="1" lg="1" ></MDBCol>
+                                </>
+                            )
+                        }
+
+
+                        {/* <MDBCol className="awsServices" sm="3" md="3" lg="3" >
                             <MDBRow className="serviceCard">
                                 <MDBCol sm="3" md="3" lg="3" >
                                     <img className="alignleft" src="https://cdn.mindmajix.com/blog/images/aws-s3-010621.webp" alt="Amazon S3" width={"40vw"} />
@@ -259,7 +296,7 @@ export const Services = (props: any) => {
                                 </MDBCol>
                             </MDBRow>
                         </MDBCol>
-                        <MDBCol sm="1" md="1" lg="1" ></MDBCol>
+                        <MDBCol sm="1" md="1" lg="1" ></MDBCol> */}
                     </MDBRow>
                 </div>
             </MDBContainer>
