@@ -74,7 +74,9 @@ export const Services = (props: any) => {
                                     <MDBCol className="awsServices" sm="3" md="3" lg="3" >
                                         <MDBRow className="serviceCard">
                                             <MDBCol sm="2" md="2" lg="2" >
-                                                <img className="alignleft" src={"https://cdn.mindmajix.com/blog/images/aws-" + service.name.split("_")[0].toLowerCase() + "-010621.webp"} alt="Amazon S3" width={"40vw"} />
+                                          
+                                            <img className="alignleft" src="  https://e7.pngegg.com/pngimages/868/302/png-clipart-aws-lambda-amazon-web-services-serverless-computing-anonymous-function-node-js-amazon-web-services-logo-angle-text.png" alt="aws" width={"40vw"} /> 
+                                                {/* <img className="alignleft" src={"https://cdn.mindmajix.com/blog/images/aws-" + service.name.split("_")[0].toLowerCase() + "-010621.webp"} alt="Amazon S3" width={"40vw"} /> */}
                                             </MDBCol>
                                             <MDBCol sm="10" md="10" lg="10" >
                                                 <p className='text-dark font-weight-bold' style={{ fontSize: "15px", marginBlockEnd: "0px" }}>{service.name.replace("_", " ")}</p>

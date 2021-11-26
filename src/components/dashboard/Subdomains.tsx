@@ -192,7 +192,7 @@ export const Subdomains = (props: any) => {
                                                                     <MDBCol sm="2" md="2" lg="2">
                                                                         {key}
                                                                     </MDBCol>
-                                                                    <MDBCol sm="8" md="8" lg="8">
+                                                                    <MDBCol sm="7" md="7" lg="7">
                                                                         <a style={{ fontSize: "12px", textDecoration: "underline", cursor: "pointer", color: "darkred" }} target="_blank" href={subD.critical[key][1]}>
                                                                             {subD.critical[key][1]}
                                                                         </a>
@@ -229,12 +229,12 @@ export const Subdomains = (props: any) => {
                                                                         <MDBCol sm="2" md="2" lg="2">
                                                                             {key}
                                                                         </MDBCol>
-                                                                        <MDBCol sm="8" md="8" lg="8">
-                                                                            <a style={{ fontSize: "12px", textDecoration: "underline", cursor: "pointer", color: "darkred" }} target="_blank" href={subD.high[key][1]}>
+                                                                        <MDBCol sm="7" md="7" lg="7">
+                                                                            <a style={{ fontSize: "12px", textDecoration: "underline", cursor: "pointer", color: "darkred" , display: "block", overflow :"hidden"}} target="_blank" href={subD.high[key][1]}>
                                                                                 {subD.high[key][1]}
                                                                             </a>
                                                                         </MDBCol>
-                                                                        <br /> <br />
+                                                                        {/* <br /> <br /> */}
                                                                         {
                                                                             subD.high[key][3] === "False" ?
                                                                                 <div>
@@ -265,7 +265,7 @@ export const Subdomains = (props: any) => {
                                                                     <MDBCol sm="2" md="2" lg="2">
                                                                         {key}
                                                                     </MDBCol>
-                                                                    <MDBCol sm="8" md="8" lg="8">
+                                                                    <MDBCol sm="7" md="7" lg="7">
                                                                         <a style={{ fontSize: "12px", textDecoration: "underline", cursor: "pointer", color: "darkred" }} target="_blank" href={subD.medium[key][1]}>
                                                                             {subD.medium[key][1]}
                                                                         </a>
@@ -301,7 +301,7 @@ export const Subdomains = (props: any) => {
                                                                         <MDBCol sm="2" md="2" lg="2">
                                                                             {key}
                                                                         </MDBCol>
-                                                                        <MDBCol sm="8" md="8" lg="8">
+                                                                        <MDBCol sm="7" md="7" lg="7">
                                                                             <a style={{ fontSize: "12px", textDecoration: "underline", cursor: "pointer", color: "darkred" }} target="_blank" href={subD.low[key][1]}>
                                                                                 {subD.low[key][1]}
                                                                             </a>

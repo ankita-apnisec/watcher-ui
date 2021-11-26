@@ -7,6 +7,7 @@ import { Domain } from "./Domain";
 import { Subdomains } from "./Subdomains";
 import { Services } from "./Services";
 import { Alerts } from "./Alerts";
+import { Pricing } from "./Pricing";
 import { Settings } from "./Settings";
 import { AccountsSelector } from "./AccountsSelector";
 import { PhaseSelector } from "./PhaseSelector";
@@ -149,19 +150,19 @@ export const Dashboard = (props: any) => {
                                     >
                                         <MDBIcon icon="exclamation-circle" /> &nbsp;&nbsp;Alerts
                                   </p>
-                                    {/* { dashboardKPI.code === "11000000" ?
+
+                                  { iswatcher === true ?
                                     <p className="side-nav-links" 
-                                        onClick={() => Switch('alerts')} 
+                                        onClick={() => Switch('pricing')} 
                                     >
-                                        <MDBIcon icon="exclamation-circle" /> &nbsp;&nbsp;Alerts
+                                        <MDBIcon icon="credit-card" /> &nbsp;&nbsp;Pricing
                                   </p> : <p className="side-nav-links" style={{ 
                                         opacity: 0.1, 
                                         cursor: "not-allowed" }}
                                     >
-                                        <MDBIcon icon="exclamation-circle" /> &nbsp;&nbsp;Alerts
+                                        <MDBIcon icon="credit-card" />&nbsp;&nbsp;Pricing
                                   </p>
-                                    } */}
-
+                                    }
 
                                     <p className="side-nav-links"
                                      onClick={() => Switch('settings')}
@@ -269,6 +270,12 @@ export const Dashboard = (props: any) => {
                                                     <Alerts />
                                                 </div>
                                             )
+                                        case 'pricing':
+                                                return (
+                                                    <div>
+                                                        <Pricing />
+                                                    </div>
+                                                )
                                         case 'settings':
                                             return (
                                                 <div>

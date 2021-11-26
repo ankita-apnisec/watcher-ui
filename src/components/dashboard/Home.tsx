@@ -107,9 +107,6 @@ export const Home = (props: any) => {
     return (
         <>
             <MDBContainer fluid className="pt-5 pb-5" style={{ padding: "2vw" }}>
-
-
-
             {props.iswatcher === true ? 
             <MDBRow style={{ minHeight: "80vh" }}>
 
@@ -132,18 +129,6 @@ export const Home = (props: any) => {
                         <br /> <br />
                         <>
 
-
-                            {/* <div className="ptest" style={{ cursor: "pointer" }} onClick={() => {
-                                props.SwitchView('pentest')
-                            }}>
-                                <h6 style={{ fontWeight: 800, cursor: "pointer" }}>Risk over time
-                                </h6>
-                                <MDBRow>
-                                    <TimeSeries />
-
-                                </MDBRow>
-                            </div>
-                            <br /> */}
                             <MDBRow >
                                 <MDBCol sm="12" md="12" lg="12" style={{ border: "1px solid #fff"}}>
                                     <div className="ptest" style={{ cursor: "pointer", border: "1px solid #ededef", backgroundColor: "whiteSmoke"  }}>
