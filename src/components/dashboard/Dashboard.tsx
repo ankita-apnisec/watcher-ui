@@ -6,6 +6,7 @@ import { Assets } from "./Assets";
 import { Domain } from "./Domain";
 import { Subdomains } from "./Subdomains";
 import { Services } from "./Services";
+import { Subservices} from "./Subservices";
 import { Alerts } from "./Alerts";
 import { Pricing } from "./Pricing";
 import { Settings } from "./Settings";
@@ -117,7 +118,7 @@ export const Dashboard = (props: any) => {
                     <MDBCol xs="1" sm='1' md='2'>
                         <MDBRow style={{ backgroundColor: "#29283a", height: "7vh" }}>
                         </MDBRow>
-                        <MDBRow style={{ backgroundColor: "#3c3a4f", height: "93vh", justifyContent: "center" }}>
+                        <MDBRow style={{ backgroundColor: "#3c3a4f", minHeight: "93vh", justifyContent: "center" }}>
                             <div style={{ marginTop: "35px" }}>
                                 <p>
                                     <MDBIcon fab onClick={() => window.open('https://www.facebook.com/apnisec.in')} icon="facebook-f" style={{ fontSize: "20px", color: "#fbfbfd", cursor: "pointer", marginLeft: "20px" }} />
@@ -151,7 +152,7 @@ export const Dashboard = (props: any) => {
                                         <MDBIcon icon="exclamation-circle" /> &nbsp;&nbsp;Alerts
                                   </p>
 
-                                  { iswatcher === true ?
+                                  {/* { iswatcher === true ?
                                     <p className="side-nav-links" 
                                         onClick={() => Switch('pricing')} 
                                     >
@@ -162,7 +163,7 @@ export const Dashboard = (props: any) => {
                                     >
                                         <MDBIcon icon="credit-card" />&nbsp;&nbsp;Pricing
                                   </p>
-                                    }
+                                    } */}
 
                                     <p className="side-nav-links"
                                      onClick={() => Switch('settings')}
@@ -186,12 +187,12 @@ export const Dashboard = (props: any) => {
                                     <p className="side-nav-links" style={{ opacity: 0.1, cursor: "not-allowed" }}>
                                         <MDBIcon icon="wrench" /> &nbsp;&nbsp;Monitoring
                                   </p>
-                                    <div style={{ marginTop: "20vh" }} >
+                                    <div style={{ marginTop: "15vh" }} >
                                         <p className="side-nav-links-bottom">
-                                            {(dashboardKPI as any).trial_days_remaining} days left of free trial
+                                            {(dashboardKPI as any).trial_days_remaining ? (dashboardKPI as any).trial_days_remaining : "0"} days left of free trial
                                     <br />
                                         </p>
-                                        <p className="side-nav-links-bottom">
+                                        <p className="side-nav-links">
                                             <MDBIcon icon="envelope" /> &nbsp;&nbsp;Contact us
                                      </p>
                                     </div>
@@ -199,7 +200,9 @@ export const Dashboard = (props: any) => {
                             </div>
                         </MDBRow>
                     </MDBCol>
-                    <MDBCol xs="11" sm='11' md='10'>
+
+                    
+                    <MDBCol xs="12" sm='12' md='10'>
                         <Header User={props.User} SwitchView={SwitchView} />
                         <MDBRow style={{ backgroundColor: "#fbfbfd", height: "93vh", overflowY: "scroll" }}>
                             <MDBContainer fluid style={{ overflowX: "hidden" }}>
@@ -250,20 +253,15 @@ export const Dashboard = (props: any) => {
                                         case 'services':
                                             return (
                                                 <div>
-                                                    {/* <MDBContainer fluid style={{ paddingTop: "2vw", paddingLeft: "2vw" }}>
-                                                        <MDBRow>
-                                                            <div>
-                                                                <select className="custom-select" style={{ width: "250px" }} onChange={(e: any) => Account(e)} value={account}>
-                                                                    <option value="1" >339361266133@delhivery-prod</option>
-                                                                    <option value="2" >339361266134@delhivery-dev</option>
-                                                                    <option value="3" >339361266135@delhivery-uat</option>
-                                                                </select>
-                                                            </div>
-                                                        </MDBRow>
-                                                    </MDBContainer> */}
                                                     <Services User={props.User} SwitchView={SwitchView} Account={account} />
                                                 </div>
                                             )
+                                        case 'subservices':
+                                                return (
+                                                    <div>
+                                                        <Subservices User={props.User} SwitchView={SwitchView} Account={account} Service={parameter}/>
+                                                    </div>
+                                                )
                                         case 'alerts':
                                             return (
                                                 <div>

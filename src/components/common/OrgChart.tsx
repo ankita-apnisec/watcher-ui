@@ -54,7 +54,7 @@ export const OrgChart = (props: any) => {
             }
           },
           fill: {
-            opacity: 0.85
+            opacity: 0.95
             // gradient: {
             //   shade: 'light',
             //   shadeIntensity: 0.4,

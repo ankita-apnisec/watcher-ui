@@ -115,7 +115,7 @@ export const Subdomains = (props: any) => {
                                 <MDBIcon icon="arrow-left" style={{ fontSize: "8px" }} /> Back</MDBBtn>
                             <MDBBreadcrumbItem>assets</MDBBreadcrumbItem>
                             <MDBBreadcrumbItem >domains</MDBBreadcrumbItem>
-                            <MDBBreadcrumbItem active>sub-domains</MDBBreadcrumbItem>
+                            <MDBBreadcrumbItem active>{props.Domain}</MDBBreadcrumbItem>
                         </MDBBreadcrumb>
                     </MDBCol>
                 </MDBRow>

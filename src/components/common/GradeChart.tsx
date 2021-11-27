@@ -17,7 +17,7 @@ export const GradeChart = (props: any) => {
           },
           title: {
             text: props.title ? props.title : "Vulnerability grade",
-            offsetX: 20,
+            offsetX: 40,
             offsetY: 0,
             floating: false,
            
@@ -61,7 +61,7 @@ export const GradeChart = (props: any) => {
             }
           },
           fill: {
-            opacity: 0.55
+            opacity: 0.75
             // gradient: {
             //   shade: 'light',
             //   shadeIntensity: 0.4,

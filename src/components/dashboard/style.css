@@ -120,20 +120,24 @@ ul {
     cursor: pointer;
 }
 .side-nav-links:hover {
-    color: rgb(104, 102, 102);
+    color:white;
+    font-size: 13px !important;
+    font-weight: 600;
     /* padding: 20px */
 }
 /* .side-nav-links:active {
     color: rgb(104, 102, 102);
 } */
-.side-nav-links-bottom:hover {
-    color: #2bbbad;
-}
+/* .side-nav-links-bottom:hover {
+    color: white;
+    font-weight: 600;
+} */
 .side-nav-links-bottom {
-    color: rgb(104, 102, 102);
-    font-size: 12px !important;
-    line-height: 20px !important;
-    padding-left: 30px!important
+    color: rgb(194, 190, 190);
+    font-size: 13px !important;
+    line-height: 10px !important;
+    padding-left: 30px!important;
+    font-weight: 600;
 }
 a {
     color: #2bbbad;
@@ -171,6 +175,7 @@ i.fa.fa-exclamation-triangle {
 }
 .ptest {
     opacity: 0.9;
+    max-height: 35vh;
 }
 .ptest:hover {
     opacity: 1;
@@ -192,10 +197,13 @@ i.fa.fa-exclamation-triangle {
 }
 .breadcrumb-item.active {
     color: #2bbbad !important;
+    font-weight: 700;
+    font-size: 14px !important;
     /* padding: 0px !important */
 }
 li.breadcrumb-item {
     padding-top: 15px !important;
+    font-weight: 300;
 }
 button.btn-blue-grey.btn.Ripple-parent.back {
     padding: 0.2rem 0.6rem  !important;
@@ -321,6 +329,7 @@ li.onboardSteps {
     background-color: #29283a;
     display: flex;
     font-size: 12px !important;
+    font-weight: 600;
 }
 label {
     font-size: 12px !important;

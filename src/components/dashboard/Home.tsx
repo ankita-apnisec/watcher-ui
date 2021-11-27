@@ -35,10 +35,12 @@ import { GradeChart } from "../common/GradeChart"
 import { fetchData } from '../../services/apiConfig'
 import { TimeSeries } from '../common/TimeSeries'
 export const Home = (props: any) => {
-    const [dashboardKPI, setDashboardKPI] = useState({ "trial_days_remaining": 15, "metrics": { 
-        "vapt": { "categories": {}, "count": { criticalCount: 0, highCount: 0, mediumCount: 0, lowCount: 0 } },
-        "domains": { "defaultAccount": "657657575"} 
-    } });
+    const [dashboardKPI, setDashboardKPI] = useState({
+        "trial_days_remaining": 15, "metrics": {
+            "vapt": { "categories": {}, "count": { criticalCount: 0, highCount: 0, mediumCount: 0, lowCount: 0 } },
+            "domains": { "defaultAccount": "657657575" }
+        }
+    });
     const [pentestSeries, setpentestSeries] = useState([])
     const [pentestSeriesCategory, setpentestSeriesCategory] = useState([])
     const [pentestSeriesCategoryCount, setpentestSeriesCategoryCount] = useState([])
@@ -106,527 +108,357 @@ export const Home = (props: any) => {
     }
     return (
         <>
-            <MDBContainer fluid className="pt-5 pb-5" style={{ padding: "2vw" }}>
-            {props.iswatcher === true ? 
-            <MDBRow style={{ minHeight: "80vh" }}>
+            <MDBContainer fluid className="pt-5 pb-5" style={{ padding: "20px" }}>
+                {props.iswatcher === true ?
+                    <MDBRow>
+                        <MDBCol sm="12" md="12" lg="6">
+                            <>
+                                <div className="ptest">
+                                    <h4 style={{ fontWeight: 800 }}>Organisation health<span className='text-light' style={{ fontSize: "11px", marginLeft: "10px", paddingTop: "10px" }}>Last synced on September 10 23:04</span></h4>
+                                    <br />
+                                    <p style={{ fontSize: "12px", paddingTop: "8px" }}>This pentest is an authorized simulated cyberattack on the primary service of the organisation,
+                                    performed to evaluate the security of the system by identifying vulnerabilities enabling a full risk assessment to be completed.
+                                </p>
 
-                    <MDBCol sm="6" md="6" lg="6">
-                        <>
-                            <h5 style={{ fontWeight: 800 }}>Organisation health<span className='text-light' style={{ fontSize: "9px", marginLeft: "10px", paddingTop: "10px" }}>Last synced on September 10 23:04</span></h5>
-                            <MDBRow >
-                                <MDBCol sm="12" md="12" lg="4">
-                                    <OrgChart />
-                                </MDBCol>
-                                <MDBCol sm="12" md="12" lg="8">
-                                    <div className="gradechart" style={{ display: "inline-flex", minHeight: "130px" }}>
-                                        <GradeChart title={"Assets grade"} value={90} />
-                                        <GradeChart title={"Domains grade"} value={70} offsetX={-50} />
-                                    </div>
+                                    <MDBRow >
+                                        <MDBCol sm="4" md="4" lg="4">
+                                            <OrgChart />
+                                        </MDBCol>
+                                        <MDBCol sm="8" md="8" lg="8">
+                                            <div className="gradechart" style={{ display: "inline-flex", minHeight: "130px" }}>
+                                                <GradeChart title={"Assets grade"} value={100} />
+                                                <GradeChart title={"Domains grade"} value={70} offsetX={-50} />
+                                            </div>
 
-                                </MDBCol>
-                            </MDBRow>
-                        </>
-                        <br /> <br />
-                        <>
+                                        </MDBCol>
+                                    </MDBRow>
+                                </div>
+                            </>
+                            <br /> <br /><br /><br />
+                            <>
+                                <div className="ptest" style={{ cursor: "pointer", border: "1px solid mistyrose" }} onClick={() => {
+                                    props.SwitchView('domains')
+                                }}>
+                                    <h6 className="st" style={{ fontWeight: 800, backgroundColor: "rgb(255,228,225, 0.6)" }}>Organization Domains
+                                        <MDBIcon icon="angle-double-right" style={{ fontSize: "15px", marginLeft: "10px", float: "right" }} /></h6>
+                                    <p style={{ fontSize: "12px", padding: "10px" }}>Watcher checks on all your domains, monitors organisation assets at scale,
+                                    regularly checks for misconfigurations for potential hacks and exploits.
+                                         </p>
+                                    <MDBRow
+                                    >
+                                        <MDBCol sm="6" md="6" lg="6"><Chart
+                                            color={['#6F4242', '#856363', '#A96E6E', '#CFAFAF']}
+                                            width={250} height={150} series={[8, 13, 2, 12]} /></MDBCol>
+                                        <MDBCol sm="6" md="6" lg="6">  <CategoryChart
+                                            color={['#CFAFAF', '#A96E6E', '#6F4242']}
+                                            series={[8, 13, 12]} /></MDBCol>
+                                    </MDBRow>
+                                    <br />
+                                </div>
 
-                            <MDBRow >
-                                <MDBCol sm="12" md="12" lg="12" style={{ border: "1px solid #fff"}}>
-                                    <div className="ptest" style={{ cursor: "pointer", border: "1px solid #ededef", backgroundColor: "whiteSmoke"  }}>
-
-                                        <h6 style={{ fontWeight: 800, padding: "10px"}}>Alerts<span className='text-light' style={{ fontSize: "8px", marginLeft: "10px", paddingTop: "10px" }}>6 available</span></h6>
-
-                                        <div style={{ maxHeight: "72vh", overflowY: "hidden", overflowX: "hidden" }}>
-
-                                        <MDBView >
-                                        <div style={{ maxHeight: "65vh", overflowY: "hidden", overflowX: "hidden",  opacity: 0.4 }}>
-                                            <br />
-                                            <MDBContainer>
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="SubDomain"
-                                                    message="1 new issue [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="23 minutes ago"
-                                                    style={{ maxWidth: "100vw !important" }}
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Sensitive endpoint"
-                                                    message="2 new misconfigurations [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="42 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                            </MDBContainer>
-                                        </div>
-                                        <MDBMask overlay="white-light">
-                                    <p><MDBIcon style={{ color: "#2bbbad", cursor: "pointer" }} size="1x" icon="lock" >
-                                    </MDBIcon></p>
-                                </MDBMask>
-                            </MDBView>
-                                            {/* <br />
-                                            <MDBContainer>
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="red-text"
-                                                    className="notify"
-                                                    title="SubDomain"
-                                                    message="1 new issue [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="23 minutes ago"
-                                                    style={{ maxWidth: "100vw !important" }}
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="blue-text"
-                                                    className="notify"
-                                                    title="Sensitive endpoint"
-                                                    message="2 new misconfigurations [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="42 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="blue-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                            </MDBContainer> */}
-                                        </div>
-                                    </div>
-                                </MDBCol>
-                            </MDBRow>
-
-                        </>
-                    </MDBCol>
-                    <MDBCol sm="6" md="6" lg="6">
-                        {props.isvapt ? <div className="ptest" style={{ cursor: "pointer", border: "1px solid #ededef" }} onClick={() => {
-                            props.SwitchView('pentest')
-                        }}>
-                            <h6 className="st" style={{ fontWeight: 800, cursor: "pointer" }}>Vulnerability Assessment
+                            </>
+                            <br /> <br />
+                        </MDBCol>
+                        <MDBCol sm="12" md="12" lg="6">
+                            {props.isvapt ?
+                                <div className="ptest" style={{ cursor: "pointer", border: "1px solid #ededef" }} onClick={() => {
+                                    props.SwitchView('pentest')
+                                }}>
+                                    <h6 className="st" style={{ fontWeight: 800, cursor: "pointer" }}>Vulnerability Assessment
                             <MDBIcon icon="angle-double-right" style={{ fontSize: "15px", marginLeft: "10px", float: "right" }} />
-                            </h6>
-                            <p style={{ fontSize: "11px", padding: "10px" }}>This pentest is an authorized simulated cyberattack on the primary service of the organisation,
-                            performed to evaluate the security of the system by identifying vulnerabilities enabling a full risk assessment to be completed.
+                                    </h6>
+                                    <p style={{ fontSize: "12px", padding: "10px" }}>This pentest is an authorized simulated cyberattack on the primary service of the organisation,
+                                    performed to evaluate the security of the system by identifying vulnerabilities enabling a full risk assessment to be completed.
                         </p>
-                            <MDBRow>
-                                <MDBCol sm="12" md="12" lg="6"><Chart series={pentestSeries} width={250} height={150} /> </MDBCol>
-                                {(pentestSeriesCategoryCount.length > 0) ? <MDBCol sm="12" md="12" lg="6">   <CategoryChart series={pentestSeriesCategoryCount} category={pentestSeriesCategory} /></MDBCol> : <></>}
-                            </MDBRow>
-                        </div> : 
-                         <div className="ptest" style={{ cursor: "pointer"}} onClick={() => {
-                            props.SwitchView('pentest')
-                        }}>
-                            <h6 style={{ fontWeight: 800 }}>Vulnerability Assessment</h6>
-                            <p style={{ fontSize: "11px" }}>This pentest is an authorized simulated cyberattack on the primary service of the organisation,
-                            performed to evaluate the security of the system by identifying vulnerabilities enabling a full risk assessment to be completed.
-                    </p>
+                                    <MDBRow>
+                                        <MDBCol sm="6" md="6" lg="6">
+                                            <Chart series={pentestSeries} width={250} height={150} /> </MDBCol>
+                                        {(pentestSeriesCategoryCount.length > 0) ?
+                                            <MDBCol sm="6" md="6" lg="6">
+                                                <CategoryChart series={pentestSeriesCategoryCount} category={pentestSeriesCategory} /></MDBCol> : <></>}
+                                    </MDBRow>
+                                </div>
+                                :
+                                <div className="ptest" style={{ cursor: "pointer" }} onClick={() => {
+                                    props.SwitchView('pentest')
+                                }}>
+                                    <h6 style={{ fontWeight: 800 }}>Vulnerability Assessment</h6>
+                                    <p style={{ fontSize: "12px" }}>This pentest is an authorized simulated cyberattack on the primary service of the organisation,
+                                    performed to evaluate the security of the system by identifying vulnerabilities enabling a full risk assessment to be completed.
+                                 </p>
 
-                            <MDBView style={{ border: "1px solid #fff" }}>
-                            <MDBRow
-                            style={{ opacity: 0.4 }}
-                            >
-                                <MDBCol sm="12" md="12" lg="6"><Chart
-                                    color={['#808080','#818589', '#71797E', '#899499' ]} 
-                                    width={250} height={150} series={[6, 23, 14, 21]} /></MDBCol>
-                                <MDBCol sm="12" md="12" lg="6">  <CategoryChart
-                                    color={['#808080','#818589', '#71797E', '#899499' ]}  
-                                    series={[5, 3, 3]} /></MDBCol>
-                            </MDBRow>
-                            <MDBMask overlay="white-strong" >
-                                <p><MDBIcon style={{ color: "#2bbbad", cursor: "pointer" }} size="1x" icon="lock" /></p>
-                            </MDBMask>
-                        </MDBView>
-                        </div>
-                        }
-                        <br /><br />
-                        <>
-                            <div className="ptest" style={{ cursor: "pointer", border: "1px solid #ededef" }} onClick={() => {
-                                props.SwitchView('services')
-                            }}>
-                                <h6 className="st" style={{ fontWeight: 800, backgroundColor: "mistyrose" }}>Cloud Services</h6>
-                                <p style={{ fontSize: "11px", padding: "10px" }}>Watcher keeps eye on all your cloud services, monitors organisation assets at scale,
-                                regularly checks for misconfigurations for potential hacks and exploits.
+                                    <MDBView style={{ border: "1px solid #fff" }}>
+                                        <MDBRow
+                                            style={{ opacity: 0.4 }}
+                                        >
+                                            <MDBCol sm="6" md="6" lg="6"><Chart
+                                                color={['#808080', '#818589', '#71797E', '#899499']}
+                                                width={250} height={150} series={[6, 23, 14, 21]} /></MDBCol>
+                                            <MDBCol sm="6" md="6" lg="6">  <CategoryChart
+                                                color={['#808080', '#818589', '#71797E', '#899499']}
+                                                series={[5, 3, 3]} /></MDBCol>
+                                        </MDBRow>
+                                        <br /><br />
+                                        <MDBMask overlay="white-strong" >
+                                            <p><MDBIcon style={{ color: "#2bbbad", cursor: "pointer" }} size="1x" icon="lock" /></p>
+                                        </MDBMask>
+                                    </MDBView>
+                                </div>
+                            }
+                            <br /><br /><br />
+                            <>
+                                <div className="ptest" style={{ cursor: "pointer", border: "1px solid rgba(124, 192, 216, 0.3)" }} onClick={() => {
+                                    props.SwitchView('services')
+                                }}>
+                                    <h6 className="st" style={{ fontWeight: 800, backgroundColor: "rgba(124, 192, 216, 0.2)" }}>Cloud Services
+                                    <MDBIcon icon="angle-double-right" style={{ fontSize: "15px", marginLeft: "10px", float: "right" }} /></h6>
+
+                                    <p style={{ fontSize: "12px", padding: "10px" }}>Watcher keeps eye on all your cloud services, monitors organisation assets at scale,
+                                    regularly checks for misconfigurations for potential hacks and exploits.
                         </p>
 
-                                <MDBRow
-                                >
-                                    <MDBCol sm="12" md="12" lg="6"><Chart
-                                    color={['#6F4242','#A96E6E', '#856363', '#CFAFAF' ]} 
-                                        width={250} height={150} series={[6, 23, 14, 21]} /></MDBCol>
-                                    <MDBCol sm="12" md="12" lg="6">  <CategoryChart
-                                    color={['#CFAFAF', '#A96E6E', '#6F4242']} 
-                                        series={[5, 3, 3]} /></MDBCol>
-                                </MDBRow>
-                               
-                            </div>
-                        </>
-                        <br /><br />
-                        <>
-                            <div className="ptest" style={{ cursor: "pointer", border: "1px solid #ededef" }} onClick={() => {
-                                props.SwitchView('domains')
-                            }}>
-                                <h6 className="st" style={{ fontWeight: 800, backgroundColor: "mistyrose" }}>Organization Domains</h6>
-                                <p style={{ fontSize: "11px", padding: "10px" }}>Watcher checks on all your domains, monitors organisation assets at scale,
-                                regularly checks for misconfigurations for potential hacks and exploits.
-                        </p>
-                                <MDBRow
-                                >
-                                    <MDBCol sm="12" md="12" lg="6"><Chart
-                                     color={['#6F4242','#A96E6E', '#856363', '#CFAFAF' ]} 
-                                        width={250} height={150} series={[8, 13, 2, 12]} /></MDBCol>
-                                    <MDBCol sm="12" md="12" lg="6">  <CategoryChart
-                                     color={['#CFAFAF', '#A96E6E', '#6F4242']} 
-                                        series={[8, 13, 12]} /></MDBCol>
-                                </MDBRow>
-                               
-                            </div>
-                        </>
-                    </MDBCol>
-                </MDBRow> :  
-
-
-
-                
-                <MDBRow style={{ minHeight: "80vh" }}>
-
-                    <MDBCol sm="6" md="6" lg="6">
-                        <>
-                            <h5 style={{ fontWeight: 800 }}>Organisation health<span className='text-light' style={{ fontSize: "9px", marginLeft: "10px", paddingTop: "10px" }}>Last synced on September 30 23:04</span></h5>
-                            <MDBView >
-                            <MDBRow  style={{ opacity: 0.4 }}>
-                                <MDBCol sm="12" md="12" lg="4">
-                                    <OrgChart color={['#808080']} />
-                                </MDBCol>
-                                <MDBCol sm="12" md="12" lg="8">
-                                    <div className="gradechart" style={{ display: "inline-flex", minHeight: "130px" }}>
-                                        <GradeChart  color={['#808080']}  title={"Assets grade"} value={90} />
-                                        <GradeChart color={['#808080']} title={"Domains grade"} value={70} offsetX={-50} />
-                                    </div>
-
-                                </MDBCol>
-                            </MDBRow>
-                            <MDBMask overlay="white-light">
-                                    <p><MDBIcon style={{ color: "#2bbbad", cursor: "pointer" }} size="1x" icon="lock" >
-                                    </MDBIcon></p>
-                                </MDBMask>
-                            </MDBView>
-                        </>
-                        <br />   <br />                      
-                        <>
-
-                            {/* 
-                            <div className="ptest" style={{ cursor: "pointer" }} onClick={() => {
-                                props.SwitchView('pentest')
-                            }}>
-                                <h6 style={{ fontWeight: 800, cursor: "pointer" }}>Risk over time
-                                </h6>
+                                    <MDBRow
+                                    >
+                                        <MDBCol sm="6" md="6" lg="6"><Chart
+                                            color={['#0f3c4c', '#1e7898', '#2596be', '#7cc0d8']}
+                                            //   color={['#6F4242','#A96E6E', '#856363', '#CFAFAF' ]} 
+                                            width={250} height={150} series={[6, 23, 14, 21]} /></MDBCol>
+                                        <MDBCol sm="6" md="6" lg="6">  <CategoryChart
+                                            color={['#0f3c4c', '#1e7898', '#2596be', '#7cc0d8']}
+                                            // color={['#CFAFAF', '#A96E6E', '#6F4242']} 
+                                            series={[5, 3, 3]} /></MDBCol>
+                                    </MDBRow>
+                                    <br />
+                                </div>
+                            </>
+                            <br /><br />
+                        </MDBCol>
+                    </MDBRow>
+                    :
+                    <MDBRow style={{ minHeight: "80vh" }}>
+                        <MDBCol sm="12" md="12" lg="6">
+                            <>
+                                <h5 style={{ fontWeight: 800 }}>Organisation health<span className='text-light' style={{ fontSize: "9px", marginLeft: "10px", paddingTop: "10px" }}>Last synced on September 30 23:04</span></h5>
+                                <p style={{ fontSize: "12px", paddingTop: "8px" }}>This pentest is an authorized simulated cyberattack on the primary service of the organisation,
+                                    performed to evaluate the security of the system by identifying vulnerabilities enabling a full risk assessment to be completed.
+                                </p>
+                                <br />
                                 <MDBView >
-                                <br/>
+                                    <MDBRow style={{ opacity: 0.4 }}>
+                                        <MDBCol sm="12" md="12" lg="4">
+                                            <OrgChart color={['#808080']} />
+                                        </MDBCol>
+                                        <MDBCol sm="12" md="12" lg="8">
+                                            <div className="gradechart" style={{ display: "inline-flex", minHeight: "130px" }}>
+                                                <GradeChart color={['#808080']} title={"Assets grade"} value={90} />
+                                                <GradeChart color={['#808080']} title={"Domains grade"} value={70} offsetX={-50} />
+                                            </div>
 
-                                <MDBRow>
-                                    <TimeSeries color={["#787878", "#5a5a5a", "#a6a6a6"]}/>
+                                        </MDBCol>
+                                    </MDBRow>
+                                    <MDBMask overlay="white-light">
+                                        <p><MDBIcon style={{ color: "#2bbbad", cursor: "pointer" }} size="1x" icon="lock" >
+                                        </MDBIcon></p>
+                                    </MDBMask>
+                                </MDBView>
+                            </>
+                            <br />   <br /><br /><br />
+                            <>
+                                <MDBRow >
+                                    <MDBCol sm="12" md="12" lg="12" style={{ border: "1px solid #fff" }}>
 
-                                </MDBRow>
-                                <MDBMask overlay="white-light">
-                                    <p><MDBIcon style={{ color: "#2bbbad", cursor: "pointer" }} size="1x" icon="lock" >
-                                    </MDBIcon></p>
-                                </MDBMask>
-                            </MDBView>
-                            </div> */}
-                            {/* <br /> */}
-                            <MDBRow >
-                                <MDBCol sm="12" md="12" lg="12" style={{ border: "1px solid #fff"}}>
-                                    <div className="ptest" style={{ cursor: "pointer" }} onClick={() => {
-                                        props.SwitchView('pentest')
-                                    }}>
-
-                                        <h6 style={{ fontWeight: 800}}>Alerts<span className='text-light' style={{ fontSize: "8px", marginLeft: "10px", paddingTop: "10px" }}>6 available</span></h6>
-                                        <MDBView >
-                                        <div style={{ maxHeight: "65vh", overflowY: "hidden", overflowX: "hidden",  opacity: 0.4 }}>
-                                            <br />
-                                            <MDBContainer>
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="SubDomain"
-                                                    message="1 new issue [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="23 minutes ago"
-                                                    style={{ maxWidth: "100vw !important" }}
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Sensitive endpoint"
-                                                    message="2 new misconfigurations [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="42 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                                <MDBNotification
-                                                    show
-                                                    fade
-                                                    icon="bell"
-                                                    iconClassName="grey-text"
-                                                    className="notify"
-                                                    title="Public GIT repo"
-                                                    message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
-                                                    text="56 minutes ago"
-                                                />
-                                            </MDBContainer>
-                                        </div>
-                                        <MDBMask overlay="white-light">
-                                    <p><MDBIcon style={{ color: "#2bbbad", cursor: "pointer" }} size="1x" icon="lock" >
-                                    </MDBIcon></p>
-                                </MDBMask>
-                            </MDBView>
-                                    </div>
-                                </MDBCol>
-                            </MDBRow>
-
-                        </>
-                    </MDBCol>
-                    <MDBCol sm="6" md="6" lg="6">
-                    {props.isvapt ? <div className="ptest" style={{ cursor: "pointer", border: "1px solid #ededef" }} onClick={() => {
-                            props.SwitchView('pentest')
-                        }}>
-                            <h6 className="st" style={{ fontWeight: 800, cursor: "pointer" }}>Vulnerability Assessment
-                            <MDBIcon icon="angle-double-right" style={{ fontSize: "15px", marginLeft: "10px", float: "right" }} />
-                            </h6>
-                            <p style={{ fontSize: "11px", padding: "10px" }}>This pentest is an authorized simulated cyberattack on the primary service of the organisation,
-                            performed to evaluate the security of the system by identifying vulnerabilities enabling a full risk assessment to be completed.
+                                        <>
+                                            <div className="ptest" style={{ cursor: "pointer" }} onClick={() => {
+                                                props.SwitchView('pentest')
+                                            }}>
+                                                <h6 style={{ fontWeight: 800, }}>Organization Domains</h6>
+                                                <p style={{ fontSize: "12px" }}>Watcher checks on all your domains, monitors organisation assets at scale,
+                                                regularly checks for misconfigurations for potential hacks and exploits.
                         </p>
-                            <MDBRow>
-                                <MDBCol sm="12" md="12" lg="6"><Chart series={pentestSeries} width={250} height={150} /> </MDBCol>
-                                {(pentestSeriesCategoryCount.length > 0) ? <MDBCol sm="12" md="12" lg="6">   <CategoryChart series={pentestSeriesCategoryCount} category={pentestSeriesCategory} /></MDBCol> : <></>}
-                            </MDBRow>
-                        </div> : 
-                         <div className="ptest" style={{ cursor: "pointer"}} onClick={() => {
-                            props.SwitchView('pentest')
-                        }}>
-                            <h6 style={{ fontWeight: 800 }}>Vulnerability Assessment</h6>
-                            <p style={{ fontSize: "11px" }}>This pentest is an authorized simulated cyberattack on the primary service of the organisation,
-                            performed to evaluate the security of the system by identifying vulnerabilities enabling a full risk assessment to be completed.
+                                                <MDBView style={{ border: "1px solid #fff" }}>
+                                                    <MDBRow
+                                                        style={{ opacity: 0.4 }}
+                                                    >
+                                                        <MDBCol sm="12" md="12" lg="6"><Chart
+                                                            color={['#808080', '#818589', '#71797E', '#899499']}
+                                                            width={250} height={150} series={[8, 13, 2, 12]} /></MDBCol>
+                                                        <MDBCol sm="12" md="12" lg="6">  <CategoryChart
+                                                            color={['#808080', '#818589', '#71797E', '#899499']}
+                                                            series={[8, 13, 12]} /></MDBCol>
+                                                    </MDBRow>
+                                                    <br />
+                                                    <MDBMask overlay="white-strong" >
+                                                        <p><MDBIcon style={{ color: "#2bbbad", cursor: "pointer" }} size="1x" icon="lock" /></p>
+                                                    </MDBMask>
+                                                </MDBView>
+                                            </div>
+                                        </>
+                                        {/* <div className="ptest" style={{ cursor: "pointer" }} onClick={() => {
+                                            props.SwitchView('pentest')
+                                        }}>
+                                            <h6 style={{ fontWeight: 800 }}>Alerts<span className='text-light' style={{ fontSize: "8px", marginLeft: "10px", paddingTop: "10px" }}>6 available</span></h6>
+                                            <MDBView >
+                                                <div style={{ maxHeight: "65vh", overflowY: "hidden", overflowX: "hidden", opacity: 0.4 }}>
+                                                    <br />
+                                                    <MDBContainer>
+                                                        <MDBNotification
+                                                            show
+                                                            fade
+                                                            icon="bell"
+                                                            iconClassName="grey-text"
+                                                            className="notify"
+                                                            title="SubDomain"
+                                                            message="1 new issue [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
+                                                            text="23 minutes ago"
+                                                            style={{ maxWidth: "100vw !important" }}
+                                                        />
+                                                        <MDBNotification
+                                                            show
+                                                            fade
+                                                            icon="bell"
+                                                            iconClassName="grey-text"
+                                                            className="notify"
+                                                            title="Sensitive endpoint"
+                                                            message="2 new misconfigurations [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
+                                                            text="42 minutes ago"
+                                                        />
+                                                        <MDBNotification
+                                                            show
+                                                            fade
+                                                            icon="bell"
+                                                            iconClassName="grey-text"
+                                                            className="notify"
+                                                            title="Public GIT repo"
+                                                            message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
+                                                            text="56 minutes ago"
+                                                        />
+                                                        <MDBNotification
+                                                            show
+                                                            fade
+                                                            icon="bell"
+                                                            iconClassName="grey-text"
+                                                            className="notify"
+                                                            title="Public GIT repo"
+                                                            message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
+                                                            text="56 minutes ago"
+                                                        />
+                                                        <MDBNotification
+                                                            show
+                                                            fade
+                                                            icon="bell"
+                                                            iconClassName="grey-text"
+                                                            className="notify"
+                                                            title="Public GIT repo"
+                                                            message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
+                                                            text="56 minutes ago"
+                                                        />
+                                                        <MDBNotification
+                                                            show
+                                                            fade
+                                                            icon="bell"
+                                                            iconClassName="grey-text"
+                                                            className="notify"
+                                                            title="Public GIT repo"
+                                                            message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
+                                                            text="56 minutes ago"
+                                                        />
+                                                        <MDBNotification
+                                                            show
+                                                            fade
+                                                            icon="bell"
+                                                            iconClassName="grey-text"
+                                                            className="notify"
+                                                            title="Public GIT repo"
+                                                            message="Alert! GIT repo public [Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus.]"
+                                                            text="56 minutes ago"
+                                                        />
+                                                    </MDBContainer>
+                                                </div>
+                                                <MDBMask overlay="white-light">
+                                                    <p><MDBIcon style={{ color: "#2bbbad", cursor: "pointer" }} size="1x" icon="lock" >
+                                                    </MDBIcon></p>
+                                                </MDBMask>
+                                            </MDBView>
+                                        </div> */}
+                                    </MDBCol>
+                                </MDBRow>
+
+                            </>
+                        </MDBCol>
+                        <MDBCol sm="12" md="12" lg="6">
+                            {props.isvapt ? <div className="ptest" style={{ cursor: "pointer", border: "1px solid #ededef" }} onClick={() => {
+                                props.SwitchView('pentest')
+                            }}>
+                                <h6 className="st" style={{ fontWeight: 800, cursor: "pointer" }}>Vulnerability Assessment
+                            <MDBIcon icon="angle-double-right" style={{ fontSize: "15px", marginLeft: "10px", float: "right" }} />
+                                </h6>
+                                <p style={{ fontSize: "12px", padding: "10px" }}>This pentest is an authorized simulated cyberattack on the primary service of the organisation,
+                                performed to evaluate the security of the system by identifying vulnerabilities enabling a full risk assessment to be completed.
+                        </p>
+                                <MDBRow>
+                                    <MDBCol sm="12" md="12" lg="6"><Chart series={pentestSeries} width={250} height={150} /> </MDBCol>
+                                    {(pentestSeriesCategoryCount.length > 0) ? <MDBCol sm="12" md="12" lg="6">   <CategoryChart series={pentestSeriesCategoryCount} category={pentestSeriesCategory} /></MDBCol> : <></>}
+                                </MDBRow>
+                                <br />
+                            </div> :
+                                <div className="ptest" style={{ cursor: "pointer" }} onClick={() => {
+                                    props.SwitchView('pentest')
+                                }}>
+                                    <h6 style={{ fontWeight: 800 }}>Vulnerability Assessment</h6>
+                                    <p style={{ fontSize: "12px" }}>This pentest is an authorized simulated cyberattack on the primary service of the organisation,
+                                    performed to evaluate the security of the system by identifying vulnerabilities enabling a full risk assessment to be completed.
                     </p>
 
-                            <MDBView style={{ border: "1px solid #fff" }}>
-                            <MDBRow
-                            style={{ opacity: 0.4 }}
-                            >
-                                <MDBCol sm="12" md="12" lg="6"><Chart
-                                    color={['#808080','#818589', '#71797E', '#899499' ]} 
-                                    width={250} height={150} series={[6, 23, 14, 21]} /></MDBCol>
-                                <MDBCol sm="12" md="12" lg="6">  <CategoryChart
-                                    color={['#808080','#818589', '#71797E', '#899499' ]}  
-                                    series={[5, 3, 3]} /></MDBCol>
-                            </MDBRow>
-                            <MDBMask overlay="white-strong" >
-                                <p><MDBIcon style={{ color: "#2bbbad", cursor: "pointer" }} size="1x" icon="lock" /></p>
-                            </MDBMask>
-                        </MDBView>
-                        </div>
-                        }
-                        <br /><br />
-                        <>
-                            <div className="ptest" style={{ cursor: "pointer"}} onClick={() => {
-                                props.SwitchView('pentest')
-                            }}>
-                                <h6 style={{ fontWeight: 800 }}>Cloud Services</h6>
-                                <p style={{ fontSize: "11px" }}>Watcher keeps eye on all your cloud services, monitors organisation assets at scale,
-                                regularly checks for misconfigurations for potential hacks and exploits.
+                                    <MDBView style={{ border: "1px solid #fff" }}>
+                                        <MDBRow
+                                            style={{ opacity: 0.4 }}
+                                        >
+                                            <MDBCol sm="12" md="12" lg="6"><Chart
+                                                color={['#808080', '#818589', '#71797E', '#899499']}
+                                                width={250} height={150} series={[6, 23, 14, 21]} /></MDBCol>
+                                            <MDBCol sm="12" md="12" lg="6">  <CategoryChart
+                                                color={['#808080', '#818589', '#71797E', '#899499']}
+                                                series={[5, 3, 3]} /></MDBCol>
+                                        </MDBRow>
+                                        <br />
+                                        <MDBMask overlay="white-strong" >
+                                            <p><MDBIcon style={{ color: "#2bbbad", cursor: "pointer" }} size="1x" icon="lock" /></p>
+                                        </MDBMask>
+                                    </MDBView>
+                                </div>
+                            }
+                            <br /><br />
+                            <>
+                                <div className="ptest" style={{ cursor: "pointer" }} onClick={() => {
+                                    props.SwitchView('pentest')
+                                }}>
+                                    <h6 style={{ fontWeight: 800 }}>Cloud Services</h6>
+                                    <p style={{ fontSize: "12px" }}>Watcher keeps eye on all your cloud services, monitors organisation assets at scale,
+                                    regularly checks for misconfigurations for potential hacks and exploits.
                         </p>
 
-                                <MDBView style={{ border: "1px solid #fff" }}>
-                                <MDBRow
-                                style={{ opacity: 0.4 }}
-                                >
-                                    <MDBCol sm="12" md="12" lg="6"><Chart
-                                        color={['#808080','#818589', '#71797E', '#899499' ]} 
-                                        width={250} height={150} series={[6, 23, 14, 21]} /></MDBCol>
-                                    <MDBCol sm="12" md="12" lg="6">  <CategoryChart
-                                        color={['#808080','#818589', '#71797E', '#899499' ]}  
-                                        series={[5, 3, 3]} /></MDBCol>
-                                </MDBRow>
-                                <MDBMask overlay="white-strong" >
-                                    <p><MDBIcon style={{ color: "#2bbbad", cursor: "pointer" }} size="1x" icon="lock" /></p>
-                                </MDBMask>
-                            </MDBView>
-                            </div>
-                        </>
-                        <br /><br />
-                        <>
-                            <div className="ptest" style={{ cursor: "pointer" }} onClick={() => {
-                                props.SwitchView('pentest')
-                            }}>
-                                <h6 style={{ fontWeight: 800, }}>Organization Domains</h6>
-                                <p style={{ fontSize: "11px" }}>Watcher checks on all your domains, monitors organisation assets at scale,
-                                regularly checks for misconfigurations for potential hacks and exploits.
-                        </p>
-                                <MDBView style={{ border: "1px solid #fff" }}>
-                                <MDBRow
-                                style={{ opacity: 0.4 }}
-                                >
-                                    <MDBCol sm="12" md="12" lg="6"><Chart
-                                         color={['#808080','#818589', '#71797E', '#899499' ]} 
-                                        width={250} height={150} series={[8, 13, 2, 12]} /></MDBCol>
-                                    <MDBCol sm="12" md="12" lg="6">  <CategoryChart
-                                         color={['#808080','#818589', '#71797E', '#899499' ]} 
-                                        series={[8, 13, 12]} /></MDBCol>
-                                </MDBRow>
-                                <MDBMask overlay="white-strong" >
-                                    <p><MDBIcon style={{ color: "#2bbbad", cursor: "pointer" }} size="1x" icon="lock" /></p>
-                                </MDBMask>
-                            </MDBView>
-                            </div>
-                        </>
-                    </MDBCol>
-                </MDBRow>
-}
+                                    <MDBView style={{ border: "1px solid #fff" }}>
+                                        <MDBRow
+                                            style={{ opacity: 0.4 }}
+                                        >
+                                            <MDBCol sm="12" md="12" lg="6"><Chart
+                                                color={['#808080', '#818589', '#71797E', '#899499']}
+                                                width={250} height={150} series={[6, 23, 14, 21]} /></MDBCol>
+                                            <MDBCol sm="12" md="12" lg="6">  <CategoryChart
+                                                color={['#808080', '#818589', '#71797E', '#899499']}
+                                                series={[5, 3, 3]} /></MDBCol>
+                                        </MDBRow>
+                                        <br />
+                                        <MDBMask overlay="white-strong" >
+                                            <p><MDBIcon style={{ color: "#2bbbad", cursor: "pointer" }} size="1x" icon="lock" /></p>
+                                        </MDBMask>
+                                    </MDBView>
+                                </div>
+                            </>
+                            <br /><br />
+                        </MDBCol>
+                    </MDBRow>
+                }
             </MDBContainer>
         </>
     )
