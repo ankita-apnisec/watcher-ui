@@ -42,15 +42,32 @@ export const Home = (props: any) => {
         }
     });
     const [pentestSeries, setpentestSeries] = useState([])
+    const [domainSeries, setdomainSeries] = useState([])
+    const [servicesSeries, setservicesSeries] = useState([])
     const [pentestSeriesCategory, setpentestSeriesCategory] = useState([])
+    const [domainsSeriesCategory, setdomainsSeriesCategory] = useState([])
+    const [servicesSeriesCategory, setservicesSeriesCategory] = useState([])
     const [pentestSeriesCategoryCount, setpentestSeriesCategoryCount] = useState([])
+    const [domiansSeriesCategoryCount, setdomiansSeriesCategoryCount] = useState([])
+    const [servicesSeriesCategoryCount, setservicesSeriesCategoryCount] = useState([])
     const [signature, setSignature] = useState('');
     const token = localStorage.getItem("token");
+   
     console.log(props)
     useEffect(() => {
         let pentestSeries: any;
+        let domainSeries: any;
+        let servicesSeries: any;
+
         let pentestSeriesCategory: any;
         let pentestSeriesCategoryCount: any;
+
+        let domainsSeriesCategory: any;
+        let domiansSeriesCategoryCount: any;
+
+        let servicesSeriesCategory: any;
+        let servicesSeriesCategoryCount: any;
+
         fetchData('dashboard', 'GET').then((res: any) => {
             setDashboardKPI(res);
 
@@ -70,14 +87,53 @@ export const Home = (props: any) => {
                         for (const [key, value] of Object.entries(res.metrics.vapt.categories)) {
                             sortable.push([key, value]);
                         }
+                      
+                      
                         sortable.sort((a: any, b: any) => {
                             return b[1] - a[1];
                         });
+                        
+                       
                         pentestSeriesCategory = [(sortable[0] as any)[0], (sortable[1] as any)[0], (sortable[2] as any)[0]];
+
                         setpentestSeriesCategory(pentestSeriesCategory);
+
                         pentestSeriesCategoryCount = [(sortable[0] as any)[1], (sortable[1] as any)[1], (sortable[2] as any)[1]];
+
                         setpentestSeriesCategoryCount(pentestSeriesCategoryCount);
                     }
+                }
+                if(res.metrics.domains.count !== undefined) {
+                    domainSeries = [res.metrics.domains.count.criticalCount, res.metrics.domains.count.highCount, res.metrics.domains.count.mediumCount, res.metrics.domains.count.lowCount]
+                    setdomainSeries(domainSeries)
+                    let sortableDomains: any = [];
+                    for (const [key, value] of Object.entries(res.metrics.domains.categories)) {
+                        sortableDomains.push([key, value]);
+                    }
+                    sortableDomains.sort((a: any, b: any) => {
+                        return b[1] - a[1];
+                    });
+                    domainsSeriesCategory = [(sortableDomains[0] as any)[0], (sortableDomains[1] as any)[0], (sortableDomains[2] as any)[0]];
+                    setdomainsSeriesCategory(domainsSeriesCategory);
+                    domiansSeriesCategoryCount = [(sortableDomains[0] as any)[1], (sortableDomains[1] as any)[1], (sortableDomains[2] as any)[1]];
+                    setdomiansSeriesCategoryCount(domiansSeriesCategoryCount);
+
+                }
+                if(res.metrics.services.count !== undefined) {
+                    servicesSeries = [res.metrics.services.count.criticalCount, res.metrics.services.count.highCount, res.metrics.services.count.mediumCount, res.metrics.services.count.lowCount]
+                    setservicesSeries(servicesSeries)
+                    let sortableServices: any = [];
+                    for (const [key, value] of Object.entries(res.metrics.services.categories)) {
+                        sortableServices.push([key, value]);
+                    }
+                    sortableServices.sort((a: any, b: any) => {
+                        return b[1] - a[1];
+                    });
+                    servicesSeriesCategory = [(sortableServices[0] as any)[0], (sortableServices[1] as any)[0], (sortableServices[2] as any)[0]];
+                    setservicesSeriesCategory(servicesSeriesCategory);
+                    servicesSeriesCategoryCount = [(sortableServices[0] as any)[1], (sortableServices[1] as any)[1], (sortableServices[2] as any)[1]];
+                    setservicesSeriesCategoryCount(servicesSeriesCategoryCount);
+
                 }
             } else {
                 if (props.Kpi.metrics.vapt !== undefined) {
@@ -85,21 +141,60 @@ export const Home = (props: any) => {
                         pentestSeries = [props.Kpi.metrics.vapt.count.criticalCount, props.Kpi.metrics.vapt.count.highCount, props.Kpi.metrics.vapt.count.mediumCount, props.Kpi.metrics.vapt.count.lowCount]
                         setpentestSeries(pentestSeries)
                         let sortable: any = [];
-                        for (const [key, value] of Object.entries(props.Kpi.metrics.vapt.categories)) {
+                        for (const [key, value] of Object.entries(res.metrics.vapt.categories)) {
                             sortable.push([key, value]);
                         }
                         sortable.sort((a: any, b: any) => {
                             return b[1] - a[1];
                         });
                         pentestSeriesCategory = [(sortable[0] as any)[0], (sortable[1] as any)[0], (sortable[2] as any)[0]];
+
                         setpentestSeriesCategory(pentestSeriesCategory);
+
                         pentestSeriesCategoryCount = [(sortable[0] as any)[1], (sortable[1] as any)[1], (sortable[2] as any)[1]];
+
                         setpentestSeriesCategoryCount(pentestSeriesCategoryCount);
+                    }
+                    if(res.metrics.domains.count !== undefined) {
+                        domainSeries = [res.metrics.domains.count.criticalCount, res.metrics.domains.count.highCount, res.metrics.domains.count.mediumCount, res.metrics.domains.count.lowCount]
+                        setdomainSeries(domainSeries)
+                        let sortableDomains: any = [];
+                        for (const [key, value] of Object.entries(res.metrics.domains.categories)) {
+                            sortableDomains.push([key, value]);
+                        }
+                        sortableDomains.sort((a: any, b: any) => {
+                            return b[1] - a[1];
+                        });
+                        domainsSeriesCategory = [(sortableDomains[0] as any)[0], (sortableDomains[1] as any)[0], (sortableDomains[2] as any)[0]];
+                        setdomainsSeriesCategory(domainsSeriesCategory);
+                        domiansSeriesCategoryCount = [(sortableDomains[0] as any)[1], (sortableDomains[1] as any)[1], (sortableDomains[2] as any)[1]];
+                        setdomiansSeriesCategoryCount(domiansSeriesCategoryCount);
+    
+    
+    
+                        if(res.metrics.services.count !== undefined) {
+                            servicesSeries = [res.metrics.services.count.criticalCount, res.metrics.services.count.highCount, res.metrics.services.count.mediumCount, res.metrics.services.count.lowCount]
+                            setservicesSeries(servicesSeries)
+                            let sortableServices: any = [];
+                            for (const [key, value] of Object.entries(res.metrics.services.categories)) {
+                                sortableServices.push([key, value]);
+                            }
+                            sortableServices.sort((a: any, b: any) => {
+                                return b[1] - a[1];
+                            });
+                            servicesSeriesCategory = [(sortableServices[0] as any)[0], (sortableServices[1] as any)[0], (sortableServices[2] as any)[0]];
+                            setservicesSeriesCategory(servicesSeriesCategory);
+                            servicesSeriesCategoryCount = [(sortableServices[0] as any)[1], (sortableServices[1] as any)[1], (sortableServices[2] as any)[1]];
+                            setservicesSeriesCategoryCount(servicesSeriesCategoryCount);
+        
+        
+                        }
                     }
                 }
             }
+            console.log(domainSeries)
         })
-    }, [props]);
+    }, []);
 
     if (signature === '0' || token === null || token === undefined || token === 'undefined' || token.length < 0) {
         return <Redirect to={{
@@ -146,12 +241,14 @@ export const Home = (props: any) => {
                                          </p>
                                     <MDBRow
                                     >
-                                        <MDBCol sm="6" md="6" lg="6"><Chart
-                                            color={['#6F4242', '#856363', '#A96E6E', '#CFAFAF']}
-                                            width={250} height={150} series={[8, 13, 2, 12]} /></MDBCol>
+                                        <MDBCol sm="6" md="6" lg="6">
+                                        <Chart   color={['#6F4242', '#856363', '#A96E6E', '#CFAFAF']} series={domainSeries} width={250} height={150} />
+                                            </MDBCol>
                                         <MDBCol sm="6" md="6" lg="6">  <CategoryChart
+                                          series={domiansSeriesCategoryCount} category={domainsSeriesCategory}
                                             color={['#CFAFAF', '#A96E6E', '#6F4242']}
-                                            series={[8, 13, 12]} /></MDBCol>
+                                          //  series={[8, 13, 12]}
+                                             /></MDBCol>
                                     </MDBRow>
                                     <br />
                                 </div>
@@ -165,15 +262,15 @@ export const Home = (props: any) => {
                                     props.SwitchView('pentest')
                                 }}>
                                     <h6 className="st" style={{ fontWeight: 800, cursor: "pointer" }}>Vulnerability Assessment
-                            <MDBIcon icon="angle-double-right" style={{ fontSize: "15px", marginLeft: "10px", float: "right" }} />
+                                 <MDBIcon icon="angle-double-right" style={{ fontSize: "15px", marginLeft: "10px", float: "right" }} />
                                     </h6>
                                     <p style={{ fontSize: "12px", padding: "10px" }}>This pentest is an authorized simulated cyberattack on the primary service of the organisation,
                                     performed to evaluate the security of the system by identifying vulnerabilities enabling a full risk assessment to be completed.
-                        </p>
+                                     </p>
                                     <MDBRow>
                                         <MDBCol sm="6" md="6" lg="6">
                                             <Chart series={pentestSeries} width={250} height={150} /> </MDBCol>
-                                        {(pentestSeriesCategoryCount.length > 0) ?
+                                              {(pentestSeriesCategoryCount.length > 0) ?
                                             <MDBCol sm="6" md="6" lg="6">
                                                 <CategoryChart series={pentestSeriesCategoryCount} category={pentestSeriesCategory} /></MDBCol> : <></>}
                                     </MDBRow>
@@ -219,14 +316,21 @@ export const Home = (props: any) => {
 
                                     <MDBRow
                                     >
-                                        <MDBCol sm="6" md="6" lg="6"><Chart
+                                        <MDBCol sm="6" md="6" lg="6">
+                                        <Chart series={servicesSeries}
+                                         color={['#0f3c4c', '#1e7898', '#2596be', '#7cc0d8']} width={250} height={150} />
+                                            
+                                            {/* <Chart
                                             color={['#0f3c4c', '#1e7898', '#2596be', '#7cc0d8']}
-                                            //   color={['#6F4242','#A96E6E', '#856363', '#CFAFAF' ]} 
-                                            width={250} height={150} series={[6, 23, 14, 21]} /></MDBCol>
+                                            width={250} height={150} series={[6, 23, 14, 21]} /> */}
+                                            
+                                            </MDBCol>
                                         <MDBCol sm="6" md="6" lg="6">  <CategoryChart
+                                        series={servicesSeriesCategoryCount} category={servicesSeriesCategory}
                                             color={['#0f3c4c', '#1e7898', '#2596be', '#7cc0d8']}
                                             // color={['#CFAFAF', '#A96E6E', '#6F4242']} 
-                                            series={[5, 3, 3]} /></MDBCol>
+                                          //  series={[5, 3, 3]} 
+                                            /></MDBCol>
                                     </MDBRow>
                                     <br />
                                 </div>
@@ -274,14 +378,14 @@ export const Home = (props: any) => {
                                                 <h6 style={{ fontWeight: 800, }}>Organization Domains</h6>
                                                 <p style={{ fontSize: "12px" }}>Watcher checks on all your domains, monitors organisation assets at scale,
                                                 regularly checks for misconfigurations for potential hacks and exploits.
-                        </p>
+                                                 </p>
                                                 <MDBView style={{ border: "1px solid #fff" }}>
                                                     <MDBRow
                                                         style={{ opacity: 0.4 }}
                                                     >
                                                         <MDBCol sm="12" md="12" lg="6"><Chart
                                                             color={['#808080', '#818589', '#71797E', '#899499']}
-                                                            width={250} height={150} series={[8, 13, 2, 12]} /></MDBCol>
+                                                            width={250} height={150} series={[5, 13, 2, 12]} /></MDBCol>
                                                         <MDBCol sm="12" md="12" lg="6">  <CategoryChart
                                                             color={['#808080', '#818589', '#71797E', '#899499']}
                                                             series={[8, 13, 12]} /></MDBCol>
@@ -407,7 +511,7 @@ export const Home = (props: any) => {
                                     <h6 style={{ fontWeight: 800 }}>Vulnerability Assessment</h6>
                                     <p style={{ fontSize: "12px" }}>This pentest is an authorized simulated cyberattack on the primary service of the organisation,
                                     performed to evaluate the security of the system by identifying vulnerabilities enabling a full risk assessment to be completed.
-                    </p>
+                                    </p>
 
                                     <MDBView style={{ border: "1px solid #fff" }}>
                                         <MDBRow

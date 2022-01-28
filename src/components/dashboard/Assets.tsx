@@ -36,7 +36,7 @@ export const Assets = (props: any) => {
     accountName: "9911213560@delhivery-prod",
     domains: {totalDomains: 3, misconfiguredDomains: 1, totalMisconfigurations: 273, critical: 2, high: 0, low: 269, medium: 0},
     lastSynced: "July 02 2021, 20:57:13",
-    services: {}});
+    services: {totalDomains: 3, misconfiguredDomains: 1, totalMisconfigurations: 273, critical: 2, high: 0, low: 269, medium: 0}});
 
     useEffect(() => {
         fetchData('asset', 'GET').then((res: any) => {
@@ -86,23 +86,23 @@ export const Assets = (props: any) => {
                     <MDBCol className="services" sm="5" md="5" lg="5" style={{ padding: "15px 40px", minHeight: "50vh", cursor: "pointer" }} onClick={() => props.SwitchView("services")}>
                         <MDBRow md="12" lg="12" style={{ display: "inline-flex" }}>
                             <p className='text-dark font-weight-bold' style={{ fontSize: "22px", paddingTop: "10px" }}>Services</p>
-                            <span className='text-dark' style={{ fontSize: "12px", marginLeft: "10px", paddingTop: "20px" }}>Scanning in progress..</span>
+                            <span className='text-dark' style={{ fontSize: "12px", marginLeft: "10px", paddingTop: "20px" }}>Last synced {assets.lastSynced}</span>
                             <div style={{ float: "right", width: "29vw" }}>
                                 <div>
                                     <ul className="list-group" style={{ listStyle: "none", fontSize: "15px", marginTop: "30px" }}>
                                         <li className="list-group-item-rating">Overall rating
                                     <span style={{ float: "right", padding: "6px 15px", backgroundColor: "#008450", border: "1px solid #008450", borderRadius: "10px", color: "white", fontWeight: "bold" }}>A</span></li>
                                         <li className="list-group-item-rating"><span>Misconfigurations</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <span style={{ float: "right", padding: "6px 15px", fontWeight: "bold", color: "#dc3912", fontSize: "40px", marginTop: "-30px" }}>--
-                                    <span style={{ float: "right", fontWeight: "bold", color: "grey", padding: "30px 5px", fontSize: "15px" }}>/ --</span></span></li>
+                                    <span style={{ float: "right", padding: "6px 15px", fontWeight: "bold", color: "#dc3912", fontSize: "35px", marginTop: "-30px" }}>{assets.services.totalMisconfigurations}
+                                    <span style={{ float: "right", fontWeight: "bold", color: "grey", padding: "30px 5px", fontSize: "15px" }}></span></span></li>
                                     <br />
                                     </ul>
                                     <p className='text-dark font-weight-bold' style={{ fontSize: "15px", paddingTop: "10px" }}>Risk severity classification</p>
                                     <ul className="list-group" style={{ listStyle: "none", fontSize: "15px", marginTop: "2vw" }}>
-                                        <li className="list-group-item"><MDBIcon icon="battery-full" style={{ color: "#dc3912", fontSize: "18px" }} /> &nbsp;&nbsp;Critical <span className="vbadge">-- issues</span></li>
-                                        <li className="list-group-item"><MDBIcon icon="battery-three-quarters" style={{ color: "#dc3912", fontSize: "18px" }} /> &nbsp;&nbsp;High <span className="vbadge">-- issues</span></li>
-                                        <li className="list-group-item"><MDBIcon icon="battery-half" style={{ color: "#dc3912", fontSize: "18px" }} /> &nbsp;&nbsp;Medium <span className="vbadge">-- issues</span></li>
-                                        <li className="list-group-item"><MDBIcon icon="battery-quarter" style={{ color: "#dc3912", fontSize: "18px" }} /> &nbsp;&nbsp;Low <span className="vbadge">-- issues</span></li>
+                                        <li className="list-group-item"><MDBIcon icon="battery-full" style={{ color: "#dc3912", fontSize: "18px" }} /> &nbsp;&nbsp;Critical <span className="vbadge">{assets.services.critical} issues</span></li>
+                                        <li className="list-group-item"><MDBIcon icon="battery-three-quarters" style={{ color: "#dc3912", fontSize: "18px" }} /> &nbsp;&nbsp;High <span className="vbadge">{assets.services.high} issues</span></li>
+                                        <li className="list-group-item"><MDBIcon icon="battery-half" style={{ color: "#dc3912", fontSize: "18px" }} /> &nbsp;&nbsp;Medium <span className="vbadge">{assets.services.medium} issues</span></li>
+                                        <li className="list-group-item"><MDBIcon icon="battery-quarter" style={{ color: "#dc3912", fontSize: "18px" }} /> &nbsp;&nbsp;Low <span className="vbadge">{assets.services.low} issues</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@ export const Assets = (props: any) => {
                                         <li className="list-group-item-rating">Overall rating
                                     <span style={{ float: "right", padding: "6px 15px", backgroundColor: "#ff8c00", border: "1px solid #ff8c00",  borderRadius: "10px", color: "white", fontWeight: "bold" }}>B</span></li>
                                         <li className="list-group-item-rating"><span>Misconfigurations</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <span style={{ float: "right", padding: "6px 15px", fontWeight: "bold", color: "#dc3912", fontSize: "40px", marginTop: "-30px" }}>{assets.domains.misconfiguredDomains}
+                                    <span style={{ float: "right", padding: "6px 15px", fontWeight: "bold", color: "#dc3912", fontSize: "40px", marginTop: "-30px" }}>{assets.domains.totalDomains}
                                     <span style={{ float: "right", fontWeight: "bold", color: "grey", padding: "30px 5px", fontSize: "15px" }}>/ {assets.domains.totalDomains}</span></span></li>
                                     <br />
                                     </ul>
