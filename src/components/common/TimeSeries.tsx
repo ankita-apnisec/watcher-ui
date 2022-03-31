@@ -25,14 +25,12 @@ export const TimeSeries = (props: any) => {
       ],
       options : {
         chart: {
-     //   height: "20vh",
         type: 'line',
         zoom: {
           enabled: false
         },
       },
       colors: props.color? props.color : ['#f44336', '#ff9800', '#0784eb', '#2bbbad'],
-      // colors : ["#787878", "#5a5a5a", "#a6a6a6"],
       dataLabels: {
         enabled: false
       },
@@ -45,10 +43,23 @@ export const TimeSeries = (props: any) => {
           'Oct', 'Nov', 'Dec'
         ],
       },
-      
       grid: {
         borderColor: '#f1f1f1',
-      }
+      },
+      legend: {
+        show: false
+      },
+      responsive: [{
+        breakpoint: 480,
+        options: {
+            chart: {
+                width: 500
+            },
+            legend: {
+                position: 'bottom'
+            }
+        }
+    }]
     }
       
 });
@@ -59,8 +70,7 @@ export const TimeSeries = (props: any) => {
                 options={chartoptions.options}
                 series={chartoptions.series}
                 type="line"
-               width="600"
-               height="300"
+                height="170"
             />
         </>
     )

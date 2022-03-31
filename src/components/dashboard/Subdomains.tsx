@@ -11,7 +11,6 @@ import {
     MDBCol,
     MDBContainer,
     MDBFormInline,
-    MDBIcon,
     MDBInput,
     MDBRow,
     MDBTable,
@@ -27,17 +26,18 @@ import {
     MDBCollapse,
     MDBNotification,
     MDBBadge,
+    MDBIcon
 } from "mdbreact";
 import "./style.css";
 import { fetchData } from '../../services/apiConfig'
 import { useWatch } from "react-hook-form";
 
 export const Subdomains = (props: any) => {
-    const [subDomainfullList, setsubDomainfullList] = useState(["subDomains"]);
-    const [subDomains, setSubDomains] = useState(["subDomains"]);
+    const [subDomainfullList, setsubDomainfullList] = useState([]);
+    const [subDomains, setSubDomains] = useState([]);
     const [collapseID, setCollapseID] = useState("");
     const [vulnerability, setVulnerability] = useState('all');
-    const [isprivate, setisprivate] = useState('all')
+    const [isprivate, setisprivate] = useState('')
     const [isresolved, setisresolved] = useState()
     console.log(props)
     useEffect(() => {
@@ -46,9 +46,9 @@ export const Subdomains = (props: any) => {
             let value = res.sort((a: any, b: any) => {
                 return a.totalCount < b.totalCount ? 1 : a.totalCount > b.totalCount ? -1 : 0
             })
-            console.log(value)
-            setSubDomains(value)
             setsubDomainfullList(value)
+            console.log(value)
+             setSubDomains(value)
         })
     }, [isresolved]);
 
@@ -76,8 +76,15 @@ export const Subdomains = (props: any) => {
         setSubDomains(filteredSubDomain)
     }
     const isPrivate = async (e: any) => {
+        let filter: any
+        if(e.target){
         setisprivate(e.target.value);
-        let filter = e.target.value
+        filter = e.target.value
+
+        } else {
+            setisprivate('false')
+            filter='false'
+        }
         let filteredSubDomain: any = new Array();
         const response = await subDomainfullList.map((subD: any) => {
             console.log(subD[filter])
@@ -90,6 +97,7 @@ export const Subdomains = (props: any) => {
         if (filter === "all") {
             filteredSubDomain = subDomainfullList
         }
+        console.log(filteredSubDomain)
         setSubDomains(filteredSubDomain)
     }
     const markResolved = (e: any) => {
@@ -111,20 +119,26 @@ export const Subdomains = (props: any) => {
                 <MDBRow>
                     <MDBCol sm="11" md="11" lg="11" style={{ padding: "0px" }}>
                         <MDBBreadcrumb >
-                            <MDBBtn className="back" onClick={() => props.SwitchView('domains')} color="blue-grey" style={{ border: "2px solid blue-grey", borderRadius: "5px", marginLeft: "0px !important", fontSize: "8px !important" }}>
-                                <MDBIcon icon="arrow-left" style={{ fontSize: "8px" }} /> Back</MDBBtn>
-                            <MDBBreadcrumbItem>assets</MDBBreadcrumbItem>
-                            <MDBBreadcrumbItem >domains</MDBBreadcrumbItem>
+                        <MDBBtn className="float-left" 
+                            color="dark"
+                            onClick={() => props.SwitchView('home')}
+                            style={{ border: "2px solid blue-grey", borderRadius: "10px" }}>
+                            <MDBIcon fas icon="angle-left" style={{ fontSize: "15px", marginLeft: "3px" }} />
+                            &nbsp;&nbsp; Go back to dashboard&nbsp;&nbsp;
+                        </MDBBtn>
+                                <MDBBreadcrumbItem onClick={() => props.SwitchView('home')} style={{ cursor: "pointer", marginLeft: "20px" }} >home</MDBBreadcrumbItem>
+                                 <MDBBreadcrumbItem onClick={() => props.SwitchView('assets')} style={{ cursor: "pointer" }}>assets</MDBBreadcrumbItem>
+                            <MDBBreadcrumbItem onClick={() => props.SwitchView('domains')} style={{ cursor: "pointer" }}>domains</MDBBreadcrumbItem>
                             <MDBBreadcrumbItem active>{props.Domain}</MDBBreadcrumbItem>
                         </MDBBreadcrumb>
                     </MDBCol>
                 </MDBRow>
 
                 <MDBRow>
-                    <MDBCol sm="11" md="11" lg="11" style={{ padding: "10px 25px", border: "1px solid #ededef", backgroundColor: "cornsilk" }}>
+                    <MDBCol sm="11" md="11" lg="11" style={{ padding: "10px 25px", border: "1px solid #ededef", backgroundColor: "#ededef" }}>
                         <MDBRow md="12" lg="12" style={{ display: "inline-flex" }}>
-                            <p className='text-dark font-weight-bold' style={{ fontSize: "20px", paddingTop: "10px" }}>Sub domains</p>
-                            {/* <span className='text-dark' style={{ fontSize: "12px", marginLeft: "10px", paddingTop: "20px" }}>213 available</span> */}
+                            <p className='text-dark font-weight-bold' style={{ fontSize: "25px", paddingTop: "10px" }}>Sub domains</p>
+                            {/* <span className='text-dark' style={{ fontSize: "13px", marginLeft: "10px", paddingTop: "20px" }}>213 available</span> */}
                         </MDBRow>
                         <MDBRow>
 
@@ -143,7 +157,7 @@ export const Subdomains = (props: any) => {
                                     <option value="false" >Public</option>
                                 </select>
                             </div>
-                            <div style={{ marginLeft: "50px" }}>
+                            {/* <div style={{ marginLeft: "50px" }}>
                                 <select className="custom-select" style={{ width: "250px" }} onChange={(e: any) => Vulnerability(e)} value={vulnerability}>
                                     <option value="totalCount" >All</option>
                                     <option value="criticalCount" >Critical</option>
@@ -151,7 +165,7 @@ export const Subdomains = (props: any) => {
                                     <option value="mediumCount" >Medium</option>
                                     <option value="lowCount" >Low</option>
                                 </select>
-                            </div>
+                            </div> */}
 
                             {/* <MDBFormInline className="md-form">
                                     <MDBIcon icon="search" />
@@ -172,11 +186,11 @@ export const Subdomains = (props: any) => {
                                 <div style={{ backgroundColor: "white" }}>
                                     {subDomains.map((subD: any, index: any) =>
                                         <div className="subDomainVulnearbility">
-                                            <li className="list-group-item-pentest" onClick={() =>
+                                            <li  className={subD.totalCount > 0 ? "red-text list-group-item-pentest" : "green-text list-group-item-pentest"} onClick={() =>
                                                 toggleCollapse("collapse" + index++)}>{subD.name}
-                                                <span className="vbadge">{subD.totalCount}  issues &nbsp;
-                                                    <i className={collapseID !== "" ? "fa fa-angle-right" : "fa fa-angle-down"} /></span>
-                                            </li>
+                                                <span className={subD.totalCount > 0 ? "red-text vbadge" : "green-text vbadge"}>{subD.totalCount}  issues &nbsp;
+                                                    <MDBIcon  fas icon={collapseID !== "" ? "caret-right" : "caret-down"} /></span>
+                                                  </li>
 
 
                                             <MDBCollapse id={"collapse" + index} isOpen={collapseID}>
@@ -186,14 +200,14 @@ export const Subdomains = (props: any) => {
                                                     <MDBRow style={{ backgroundColor: "#f5c6cb", color: "darkred" }} className="subDomainVulnearbility">
                                                         <MDBBadge className="subDomainBadge" color="danger">Critical</MDBBadge>
                                                         {(Object.keys(subD.critical)).map((key: any) => {
-                                                            return <div style={{ width: "100%", marginLeft: "2vw", fontSize: "12px" }}>
+                                                            return <div style={{ width: "100%", marginLeft: "2vw", fontSize: "13px" }}>
                                                                 <br />
                                                                 <MDBRow>
                                                                     <MDBCol sm="2" md="2" lg="2">
                                                                         {key}
                                                                     </MDBCol>
                                                                     <MDBCol className="subDValue" sm="7" md="7" lg="7">
-                                                                        <a style={{ fontSize: "12px", textDecoration: "underline", cursor: "pointer", color: "darkred" }} target="_blank" href={subD.critical[key][1]}>
+                                                                        <a style={{ fontSize: "13px", textDecoration: "underline", cursor: "pointer", color: "darkred" }} target="_blank" href={subD.critical[key][1]}>
                                                                             {subD.critical[key][1]}
                                                                         </a>
                                                                     </MDBCol>
@@ -202,7 +216,7 @@ export const Subdomains = (props: any) => {
                                                                         subD.critical[key][3] === "False" ?
                                                                             <div>
                                                                                 <MDBBadge color="primary" onClick={() => { markResolved(subD.critical[key][2])}} 
-                                                                                style={{ marginTop: "10px !important", marginLeft: "1vw", cursor: "pointer", fontSize: "12px" }} className="subDomainBadge" value={subD.identifier}>
+                                                                                style={{ marginTop: "10px !important", marginLeft: "1vw", cursor: "pointer", fontSize: "13px" }} className="subDomainBadge" value={subD.identifier}>
                                                                                     Mark as resolved</MDBBadge>
                                                                             </div> : <></>
                                                                     }
@@ -210,14 +224,14 @@ export const Subdomains = (props: any) => {
                                                                         subD.critical[key][3] === "True" ?
                                                                             <div>
                                                                                 <MDBBadge color="success"
-                                                                                style={{ marginTop: "10px !important", marginLeft: "1vw", fontSize: "12px" }} className="subDomainBadge" value={subD.identifier}>
+                                                                                style={{ marginTop: "10px !important", marginLeft: "1vw", fontSize: "13px" }} className="subDomainBadge" value={subD.identifier}>
                                                                                     Resolved</MDBBadge>
                                                                             </div> : <></>
                                                                     }
                                                                     {
                                                                         subD.critical[key][3] === "Pending" ?
                                                                             <div>
-                                                                                <MDBBadge color="warning" style={{ marginTop: "10px !important", marginLeft: "1vw", fontSize: "12px" }} className="subDomainBadge" value={subD.identifier}>
+                                                                                <MDBBadge color="warning" style={{ marginTop: "10px !important", marginLeft: "1vw", fontSize: "13px" }} className="subDomainBadge" value={subD.identifier}>
                                                                                     Pending Verification</MDBBadge>
                                                                             </div> : <></>
                                                                     }
@@ -233,14 +247,14 @@ export const Subdomains = (props: any) => {
                                                         <MDBRow style={{ backgroundColor: "#f5c6cb", color: "darkred" }} className="subDomainVulnearbility">
                                                             <MDBBadge className="subDomainBadge" color="danger">High</MDBBadge>
                                                             {(Object.keys(subD.high)).map((key: any) => {
-                                                                return <div style={{ width: "100%", marginLeft: "2vw", fontSize: "12px" }}>
+                                                                return <div style={{ width: "100%", marginLeft: "2vw", fontSize: "13px" }}>
                                                                     <br />
                                                                     <MDBRow>
                                                                         <MDBCol sm="2" md="2" lg="2">
                                                                             {key}
                                                                         </MDBCol>
                                                                         <MDBCol className="subDValue" sm="7" md="7" lg="7">
-                                                                            <a style={{ fontSize: "12px", textDecoration: "underline", cursor: "pointer", color: "darkred" , display: "block", overflow :"hidden"}} target="_blank" href={subD.high[key][1]}>
+                                                                            <a style={{ fontSize: "13px", textDecoration: "underline", cursor: "pointer", color: "darkred" , display: "block", overflow :"hidden"}} target="_blank" href={subD.high[key][1]}>
                                                                                 {subD.high[key][1]}
                                                                             </a>
                                                                         </MDBCol>
@@ -248,7 +262,7 @@ export const Subdomains = (props: any) => {
                                                                         {
                                                                             subD.high[key][3] === "False" ?
                                                                                 <div>
-                                                                                    <MDBBadge color="primary" onClick={() => { markResolved(subD.high[key][2])}}  style={{ marginTop: "10px !important", marginLeft: "1vw", cursor: "pointer", fontSize: "12px" }} className="subDomainBadge" value={subD.identifier}>
+                                                                                    <MDBBadge color="primary" onClick={() => { markResolved(subD.high[key][2])}}  style={{ marginTop: "10px !important", marginLeft: "1vw", cursor: "pointer", fontSize: "13px" }} className="subDomainBadge" value={subD.identifier}>
                                                                                         Mark as resolved</MDBBadge>
                                                                                 </div> : <></>
                                                                         }
@@ -256,14 +270,14 @@ export const Subdomains = (props: any) => {
                                                                             subD.high[key][3] === "True" ?
                                                                             <div>
                                                                             <MDBBadge color="success"
-                                                                            style={{ marginTop: "10px !important", marginLeft: "1vw", fontSize: "12px" }} className="subDomainBadge" value={subD.identifier}>
+                                                                            style={{ marginTop: "10px !important", marginLeft: "1vw", fontSize: "13px" }} className="subDomainBadge" value={subD.identifier}>
                                                                                 Resolved</MDBBadge>
                                                                         </div> : <></>
                                                                         }
                                                                         {
                                                                             subD.high[key][3] === "Pending" ?
                                                                                 <div>
-                                                                                    <MDBBadge color="warning" style={{ marginTop: "10px !important", marginLeft: "1vw", fontSize: "12px" }} className="subDomainBadge" value={subD.identifier}>
+                                                                                    <MDBBadge color="warning" style={{ marginTop: "10px !important", marginLeft: "1vw", fontSize: "13px" }} className="subDomainBadge" value={subD.identifier}>
                                                                                         Pending Verification</MDBBadge>
                                                                                 </div> : <></>
                                                                         }
@@ -279,14 +293,14 @@ export const Subdomains = (props: any) => {
                                                     <MDBRow style={{ backgroundColor: "#ffeeba", color: "chocolate" }} className="subDomainVulnearbility">
                                                     <MDBBadge className="subDomainBadge" color="warning">Medium</MDBBadge>
                                                         {(Object.keys(subD.medium)).map((key: any) => {
-                                                            return <div style={{ width: "100%", marginLeft: "2vw", fontSize: "12px" }}>
+                                                            return <div style={{ width: "100%", marginLeft: "2vw", fontSize: "13px" }}>
                                                                 <br />
                                                                 <MDBRow>
                                                                     <MDBCol sm="2" md="2" lg="2">
                                                                         {key}
                                                                     </MDBCol>
                                                                     <MDBCol className="subDValue" sm="7" md="7" lg="7">
-                                                                        <a style={{ fontSize: "12px", textDecoration: "underline", cursor: "pointer", color: "darkred" }} target="_blank" href={subD.medium[key][1]}>
+                                                                        <a style={{ fontSize: "13px", textDecoration: "underline", cursor: "pointer", color: "darkred" }} target="_blank" href={subD.medium[key][1]}>
                                                                             {subD.medium[key][1]}
                                                                         </a>
                                                                     </MDBCol>
@@ -294,7 +308,7 @@ export const Subdomains = (props: any) => {
                                                                     {
                                                                         subD.medium[key][3] === "False" ?
                                                                             <div>
-                                                                                <MDBBadge color="primary" onClick={() => { markResolved(subD.medium[key][2])}}  style={{ marginTop: "10px !important", marginLeft: "1vw", cursor: "pointer", fontSize: "12px" }} className="subDomainBadge" value={subD.identifier}>
+                                                                                <MDBBadge color="primary" onClick={() => { markResolved(subD.medium[key][2])}}  style={{ marginTop: "10px !important", marginLeft: "1vw", cursor: "pointer", fontSize: "13px" }} className="subDomainBadge" value={subD.identifier}>
                                                                                     Mark as resolved</MDBBadge>
                                                                             </div> : <></>
                                                                     }
@@ -302,14 +316,14 @@ export const Subdomains = (props: any) => {
                                                                         subD.medium[key][3] === "True" ?
                                                                         <div>
                                                                         <MDBBadge color="success"
-                                                                        style={{ marginTop: "10px !important", marginLeft: "1vw",fontSize: "12px" }} className="subDomainBadge" value={subD.identifier}>
+                                                                        style={{ marginTop: "10px !important", marginLeft: "1vw",fontSize: "13px" }} className="subDomainBadge" value={subD.identifier}>
                                                                             Resolved</MDBBadge>
                                                                     </div> : <></>
                                                                     }
                                                                     {
                                                                         subD.medium[key][3] === "Pending" ?
                                                                             <div>
-                                                                                <MDBBadge color="warning" style={{ marginTop: "10px !important", marginLeft: "1vw", fontSize: "12px" }} className="subDomainBadge" value={subD.identifier}>
+                                                                                <MDBBadge color="warning" style={{ marginTop: "10px !important", marginLeft: "1vw", fontSize: "13px" }} className="subDomainBadge" value={subD.identifier}>
                                                                                     Pending Verification</MDBBadge>
                                                                             </div> : <></>
                                                                     }
@@ -325,14 +339,14 @@ export const Subdomains = (props: any) => {
                                                         <MDBRow style={{ backgroundColor: "#c3e6cb", color: "darkgreen" }} className="subDomainVulnearbility">
                                                             <MDBBadge className="subDomainBadge" color="success">Low</MDBBadge>
                                                             {(Object.keys(subD.low)).map((key: any) => {
-                                                                return <div style={{ width: "100%", marginLeft: "2vw", fontSize: "12px" }}>
+                                                                return <div style={{ width: "100%", marginLeft: "2vw", fontSize: "13px" }}>
                                                                     <br />
                                                                     <MDBRow>
                                                                         <MDBCol sm="2" md="2" lg="2">
                                                                             {key}
                                                                         </MDBCol>
                                                                         <MDBCol className="subDValue" sm="7" md="7" lg="7">
-                                                                            <a style={{ fontSize: "12px", textDecoration: "underline", cursor: "pointer", color: "darkred" }} target="_blank" href={subD.low[key][1]}>
+                                                                            <a style={{ fontSize: "13px", textDecoration: "underline", cursor: "pointer", color: "darkred" }} target="_blank" href={subD.low[key][1]}>
                                                                                 {subD.low[key][1]}
                                                                             </a>
                                                                         </MDBCol>
@@ -340,7 +354,7 @@ export const Subdomains = (props: any) => {
                                                                         {
                                                                             subD.low[key][3] === "False" ?
                                                                                 <div>
-                                                                                    <MDBBadge color="primary" onClick={() => { markResolved(subD.low[key][2])}}  style={{ marginTop: "10px !important", marginLeft: "1vw", cursor: "pointer", fontSize: "12px" }} className="subDomainBadge" value={subD.identifier}>
+                                                                                    <MDBBadge color="primary" onClick={() => { markResolved(subD.low[key][2])}}  style={{ marginTop: "10px !important", marginLeft: "1vw", cursor: "pointer", fontSize: "13px" }} className="subDomainBadge" value={subD.identifier}>
                                                                                         Mark as resolved</MDBBadge>
                                                                                 </div> : <></>
                                                                         }
@@ -348,14 +362,14 @@ export const Subdomains = (props: any) => {
                                                                             subD.low[key][3] === "True" ?
                                                                             <div>
                                                                             <MDBBadge color="success"
-                                                                            style={{ marginTop: "10px !important", marginLeft: "1vw",  fontSize: "12px" }} className="subDomainBadge" value={subD.identifier}>
+                                                                            style={{ marginTop: "10px !important", marginLeft: "1vw",  fontSize: "13px" }} className="subDomainBadge" value={subD.identifier}>
                                                                                 Resolved</MDBBadge>
                                                                         </div> : <></>
                                                                         }
                                                                         {
                                                                             subD.low[key][3] === "Pending" ?
                                                                                 <div>
-                                                                                    <MDBBadge color="warning" style={{ marginTop: "10px !important", marginLeft: "1vw",  fontSize: "12px" }} className="subDomainBadge" value={subD.identifier}>
+                                                                                    <MDBBadge color="warning" style={{ marginTop: "10px !important", marginLeft: "1vw",  fontSize: "13px" }} className="subDomainBadge" value={subD.identifier}>
                                                                                         Pending Verification</MDBBadge>
                                                                                 </div> : <></>
                                                                         }
@@ -370,11 +384,11 @@ export const Subdomains = (props: any) => {
                                                 {subD.info ?
                                                     <div>
                                                         <MDBRow style={{ color: "gray" }} >
-                                                            <div style={{ marginLeft: "4vw", fontSize: "12px" }}>
+                                                            <div style={{ marginLeft: "4vw", fontSize: "13px" }}>
                                                                 {(Object.keys(subD.info)).map((key: any) => {
-                                                                    return <div style={{ fontSize: "12px", display: "flex" }}><div className="InfoKey" style={{ fontSize: "12px", width: "20vw", minWidth: "20vw" }}>{key} </div>
-                                                                        {subD.info[key][1] ? <a style={{ marginLeft: "4vw", fontSize: "12px", textDecoration: "underline", cursor: "pointer", color: "cadetblue" }} target="_blank" href={subD.info[key][1]}>{subD.info[key][1]}</a> :
-                                                                            <p style={{ marginLeft: "4vw", fontSize: "12px", color: "#323232", marginBottom: "0px !important" }}>{subD.info[key][0]} </p>}
+                                                                    return <div style={{ fontSize: "13px", display: "flex" }}><div className="InfoKey" style={{ fontSize: "13px", width: "20vw", minWidth: "20vw" }}>{key} </div>
+                                                                        {subD.info[key][1] ? <a style={{ marginLeft: "4vw", fontSize: "13px", textDecoration: "underline", cursor: "pointer", color: "cadetblue" }} target="_blank" href={subD.info[key][1]}>{subD.info[key][1]}</a> :
+                                                                            <p style={{ marginLeft: "4vw", fontSize: "13px", color: "#323232", marginBottom: "0px !important" }}>{subD.info[key][0]} </p>}
                                                                     </div>
                                                                 })}
                                                             </div>

@@ -31,27 +31,23 @@ import "./style.css";
 import domain from '../../assets/images/domain.png'
 import { fetchData } from '../../services/apiConfig'
 export const AccountsSelector = (props: any) => {
+    console.log(props)
     const [AccountList, setAccountList] = useState([props.Account]);
     const accountList: any = new Array();
     useEffect(() => {
+        console.log("fetch")
         fetchData('accounts', 'GET').then((res: any) => {
-            console.log(res)
             for(let key in res){
-                console.log(props.Account)
-                console.log(res[key]);
                 accountList.push(res[key]);
             }
             setAccountList(accountList)
         })
-    }, []);
+    }, [props]);
     
     const AccountT = (e: any) => {
-        console.log(e.target.value)
         const newAccount = e.target.value;
         props.AccountToggle(newAccount);
     }
-    console.log(AccountList)
-    console.log(props.account)
     const token = localStorage.getItem("token");
     console.log("accountSelector")
     if (token === null || token === undefined || token.length < 0) {
@@ -61,10 +57,12 @@ export const AccountsSelector = (props: any) => {
     }
     return (
         <>
-            <MDBContainer fluid style={{ paddingTop: "2vw", paddingLeft: "2vw" }}>
+            <MDBContainer fluid style={{ paddingTop: "1vw", paddingLeft: "2vw"  }}>
                 <MDBRow>
                     <div>
-                        <select className="custom-select" style={{ width: "250px" }} onChange={(e: any) => AccountT(e)} value={props.account}>
+                    <label className="accountSelect">Account:</label>
+                        <select className="custom-select" 
+                         onChange={(e: any) => AccountT(e)} value={props.Account}>
                            {AccountList.map((account: any) => {
                                 return <option value={account}>{account}</option>
                            })}

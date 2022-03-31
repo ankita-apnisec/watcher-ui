@@ -14,6 +14,29 @@
 .watcherHeader {
     border-bottom: 1px solid #ededef
 }
+.headertabs {
+    margin-left: 35px;
+    font-weight: 600;
+    font-size: 14px !important;
+}
+.accountSelect {
+    font-weight: 800;
+    font-size: 15px !important;
+}
+.logouttab {
+     margin-left: 35px; 
+    font-weight: 600;
+    font-size: 14px !important;
+    cursor: pointer;
+    background-color: #00e3aa;
+    border: 5px solid #00e3aa;
+    border-radius: 20px; 
+    /* width: -webkit-fill-available; */
+}
+.headertabs:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
 .btn {
     text-transform: capitalize !important;
     padding: 0.5rem 1.5rem !important;
@@ -54,7 +77,8 @@ ul {
 .vbadge {
     float: right;
     font-size: 13px;
-    color: darkred
+    color: darkred;
+    font-weight: 700;
 }
 .resolvedvbadge {
     float: right;
@@ -81,6 +105,7 @@ ul {
     padding-top: 18px !important;
     background-color: transparent !important;
     font-size: 14px !important;
+    font-weight: 700;
 }
 .list-group-item-rating {
     border: 0px !important;
@@ -106,22 +131,58 @@ ul {
     /* padding-bottom: 20px !important; */
     /* padding-top: 18px !important; */
     background-color: transparent !important;
-    font-size: 12px !important;
-    font-weight: 400;
+    font-size: 14px !important;
+    font-weight: 700;
     color: black;
     cursor: pointer;
 }
 
 .side-nav-links {
-    color: rgb(194, 190, 190);
-    font-size: 12px !important;
-    line-height: 30px !important;
-    padding-left: 30px!important;
+    /* color: rgb(194, 190, 190); */
+    color: grey;
+    font-size: 14px !important;
+    line-height: 20px !important;
+    padding-left: 20px!important;
     cursor: pointer;
+    font-weight: 600;
+    padding-top: 10px;
 }
 .side-nav-links:hover {
-    color:white;
-    font-size: 13px !important;
+    /* color:#00e3aa; */
+    font-size: 14px !important;
+    text-decoration: underline;
+    font-weight: 600;
+    /* padding: 20px */
+}
+.side-subnav-links {
+    color: grey;
+    font-size: 14px !important;
+    line-height: 20px !important;
+    padding-left: 40px!important;
+    cursor: pointer;
+    font-weight: 600;
+    padding-top: 0px;
+}
+.side-subnav-links:hover {
+    /* color:#00e3aa; */
+    font-size: 14px !important;
+    text-decoration: underline;
+    font-weight: 600;
+    /* padding: 20px */
+}
+.side-detailsubnav-links {
+    color: grey;
+    font-size: 14px !important;
+    line-height: 20px !important;
+    padding-left: 60px!important;
+    cursor: pointer;
+    font-weight: 600;
+    padding-top: 0px;
+}
+.side-detailsubnav-links:hover {
+    /* color:#00e3aa; */
+    font-size: 14px !important;
+    text-decoration: underline;
     font-weight: 600;
     /* padding: 20px */
 }
@@ -175,10 +236,16 @@ i.fa.fa-exclamation-triangle {
 }
 .ptest {
     opacity: 0.9;
-    max-height: 35vh;
+    max-height: 23vh;
+    min-height: 23vh;
 }
 .ptest:hover {
     opacity: 1;
+}
+.darkeye {
+    opacity: 0.9;
+    max-height: 35vh;
+    background-color: #dbdbdb !important;
 }
 /* .st{
     color:black
@@ -195,20 +262,33 @@ i.fa.fa-exclamation-triangle {
     min-height: 45px !important;
     max-height: 50px !important;
 }
+.breadcrumb-item:hover {
+   cursor: pointer;
+   text-decoration: underline;
+}
 .breadcrumb-item.active {
-    color: #2bbbad !important;
-    font-weight: 700;
-    font-size: 14px !important;
+    /* color: #2bbbad !important; */
+    color: black  !important;
+    font-weight: 800;
+    /* font-size: 20px !important; */
+    text-decoration: underline;
+    cursor: pointer;
     /* padding: 0px !important */
 }
 li.breadcrumb-item {
-    padding-top: 15px !important;
+    /* padding-top: 15px !important; */
     font-weight: 300;
+    font-size: 15px !important;
+    color: black !important
 }
 button.btn-blue-grey.btn.Ripple-parent.back {
-    padding: 0.2rem 0.6rem  !important;
+    /* padding: 0.2rem 0.6rem  !important; */
     opacity: 0.7;
-    margin: 0.6rem 0.6rem;
+    margin: 0.3rem 0.7rem 1.0rem 0.7rem;
+    background-color: #00e3aa !important;
+    color: black;
+    font-weight: 700;
+    font-size: 16px;
 }
 button.btn-blue-grey.btn.Ripple-parent.back:hover {
     opacity: 0.9;
@@ -295,12 +375,20 @@ button.btn-blue-grey.btn.Ripple-parent.back:hover {
     opacity: 1;
 }
 .st {
-    background-color: linen;
-    padding: 10px;
+    background-color: rgb(237, 237, 239);
+    /* background-color: linen; */
+    padding: 7px;
 }
 .st:hover {
     text-decoration: underline;
 }
+span.badge.default.badge-default.domainissues {
+    background-color: rgba(124, 192, 216, 0.2) !important;
+    color: black !important
+}
+/* .domainissues:hover {
+    text-decoration: underline;
+} */
 .serviceCardDisabled {
     padding: 20px 10px;
     opacity: 0.3;
@@ -324,12 +412,13 @@ li.onboardSteps {
     color: white;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-right: 3vw;
-    padding-left: 2vw;
-    background-color: #29283a;
-    display: flex;
-    font-size: 12px !important;
-    font-weight: 600;
+    padding-right: 1vw;
+    padding-left: 1vw;
+    background-color: #272a31;
+    display: block;
+    font-size: 17px !important;
+    font-weight: 900;
+    cursor: pointer;
 }
 label {
     font-size: 12px !important;
@@ -377,11 +466,11 @@ i.fa.fa-plug.prefix {
   }
   
   input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #00e3aa;
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #00e3aa;
   }
   
   input:checked + .slider:before {
@@ -435,4 +524,86 @@ span.badge.subDomainBadge {
 }
 .col-sm-7.col-md-7.col-lg-7.subDValue {
     max-width: 35vw !important;
+}
+.card-footer {
+    padding: 0px !important;
+}
+.card-body {
+    background-color: #2b2b2b;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    border-radius: 4px;
+}
+input.form-control.form-control-sm.ml-3.w-75:focus {
+    box-shadow: 0 0 0 0.2rem rgb(0 227 170 / 80%);
+    /* border: 1px solid #00e3aa */
+}
+button.btn-default.btn.Ripple-parent.saleButton {
+    background-color: #00e3aa !important;
+    color: black;
+    font-weight: 700;
+}
+i.fa.fa-comments.prefix {
+    color: #00e3aa;
+}
+i.fa.fa-plug.prefix {
+    color: #00e3aa
+}
+.badge-danger{
+    font-size: 15px !important;
+}
+.red-text {
+    font-size: 15px !important;
+}
+.green-text {
+    font-size: 14px !important;
+}
+select.custom-select {
+    margin-left: 10px;
+    width: 350px;
+    font-size: 14px !important;
+    font-weight: 700;
+    /* background-color: rgba(0, 227, 170, 0.4); */
+    border: 1px solid black;
+}
+.arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 500px solid transparent;
+    border-right: 500px solid transparent;
+    border-bottom: 500px solid black;
+}
+.md-form .prefix.active {
+    color: #00e3aa !important;
+}
+.md-form input[type="email"]:not(.browser-default):focus:not([readonly]) {
+    border-bottom: 1px solid #00e3aa !important;
+    box-shadow: 0 1px 0 0 #00e3aa !important
+}
+.md-form input[type="email"]:not(.browser-default):focus:not([readonly])+label {
+    color: #1B1C1E !important;
+    font-weight: 500;
+}
+.md-form input[type="password"]:not(.browser-default):focus:not([readonly]) {
+    border-bottom: 1px solid #00e3aa !important;
+    box-shadow: 0 1px 0 0 #00e3aa !important
+}
+.md-form input[type="password"]:not(.browser-default):focus:not([readonly])+label {
+    color: #1B1C1E !important;
+    font-weight: 500
+}
+.md-form label.active {
+    font-size: 15px !important
+
+}
+.form-control:focus {
+    border-color: #00e3aa !important;
+    box-shadow: 0 0 0 0.2rem rgb(0 227 170 / 50%) !important;
+}
+button.btn-default.btn.Ripple-parent.loginButton {
+    color: black;
+    background-color: #00e3aa !important;
+    border: 4px solid #00e3aa;
+    border-radius: 30px !important;
+    padding: 10px 80px 10px 80px !important;
+    font-size: 15px !important;
 }

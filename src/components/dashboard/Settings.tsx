@@ -170,8 +170,8 @@ export const Settings = (props: any) => {
                         <br /> <br />
                         {view === true && whconnected === false ?  <div>
                             <MDBRow>
-                                <div className="ptest" style={{ cursor: "pointer", border: "1px solid #ededef", width: "72vw" }} >
-                                    <h6 className="st" style={{ fontWeight: 800, backgroundColor: "mistyrose" }}>Configurations</h6>
+                                <div className="ptest" style={{ cursor: "pointer", border: "1px solid #ededef", width: "72vw" , minHeight: "35vh"}} >
+                                    <h4 className="st" style={{ fontWeight: 800, backgroundColor: "rgb(220, 220, 220)" }}>Configurations</h4>
                                     <p style={{ fontSize: "11px", padding: "10px" }}>Watcher provides this pluggable alert system on your business channel. Configure to get real time alerts.
                                  </p>
                                  <MDBCol md="11">
@@ -183,7 +183,7 @@ export const Settings = (props: any) => {
                                                  value={webhook} onChange={e => setWebhook((e.target as any).value)} success="right"/>
                                         </div>
                                         <div className="text-center text-md-right text-white">
-                                            <MDBBtn id="myBtn" onClick={() => ConnecttoWebhook()} >Connect</MDBBtn>
+                                            <MDBBtn className="saleButton" id="myBtn" onClick={() => ConnecttoWebhook()} >Connect</MDBBtn>
                                         </div>
                                         <br />
                                     </form>
@@ -193,20 +193,20 @@ export const Settings = (props: any) => {
                         </div> : <></>}
                         {view === true && whconnected === true ? <div>
                             <MDBRow>
-                                <div className="ptest" style={{ cursor: "pointer", border: "1px solid #ededef", width: "72vw" }} >
-                                    <h6 className="st" style={{ fontWeight: 800, backgroundColor: "mistyrose" }}>Configurations</h6>
+                                <div className="ptest" style={{ cursor: "pointer", border: "1px solid #ededef", width: "72vw", minHeight: "35vh" }} >
+                                    <h4 className="st" style={{ fontWeight: 800, backgroundColor: "rgb(220, 220, 220)" }}>Configurations</h4>
                                     <p style={{ fontSize: "11px", padding: "10px" }}>Watcher provides this pluggable alert system on your business channel. Configure to get real time alerts.
                                  </p>
                                  <MDBCol md="11">
                                     <form style={{marginLeft : "10px"}}>
                                         <div className="grey-text font-weight-bold" >
-                                        <MDBInput className="green-text font-weight-bold" icon="comments" group type="text" validate error="wrong"
-                                                  value={platform.toUpperCase() || togglePlatform.toUpperCase()} success="right" />
-                                        <MDBInput className="green-text font-weight-bold" icon="plug" group type="email" validate error="wrong"
-                                                 value={webhook}  success="right"/>
+                                        <MDBInput className="font-weight-bold" icon="comments" group type="text" validate error="wrong"
+                                                  value={platform.toUpperCase() || togglePlatform.toUpperCase()} success="right" style={{color: "black"}}/>
+                                        <MDBInput className="font-weight-bold" icon="plug" group type="email" validate error="wrong"
+                                                 value={webhook}  success="right" style={{color: "black"}}/>
                                         </div>
                                         <div className="text-center text-md-right text-white">
-                                            <MDBBtn id="myBtn" onClick={() => EditWebhook()} color="indigo">Edit webhook</MDBBtn>
+                                            <MDBBtn className="saleButton" id="myBtn" onClick={() => EditWebhook()} >Edit webhook</MDBBtn>
                                         </div>
                                         <br />
                                     </form>

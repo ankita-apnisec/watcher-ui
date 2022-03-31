@@ -10,7 +10,7 @@ export const CategoryChart = (props: any) => {
         options: {
             chart: {
                 offsetY: 20,
-                offsetX: 50
+                offsetX: -50
             },
             stroke: {
                 colors: ['#fff']
@@ -51,18 +51,18 @@ export const CategoryChart = (props: any) => {
                 x: {
                     show: false
                 }
-            },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        width: 200
-                    },
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }]
+            }
+            // responsive: [{
+            //     breakpoint: 350,
+            //     options: {
+            //         chart: {
+            //             width: 350
+            //         },
+            //         legend: {
+            //             position: 'right'
+            //         }
+            //     }
+            // }]
         },
     });
     useEffect(() => {
@@ -71,7 +71,7 @@ export const CategoryChart = (props: any) => {
             options: {
                 chart: {
                     offsetY: 20,
-                    offsetX: -60
+                    offsetX: -50
                 },
                 stroke: {
                     colors: ['#fff']
@@ -101,7 +101,7 @@ export const CategoryChart = (props: any) => {
                   legend: {
                     position: "right",
                     offsetY: 20,
-                    offsetX: 10,
+                    offsetX: 20,
                     fontSize: '10px',
                 },
                 tooltip: {
@@ -112,18 +112,18 @@ export const CategoryChart = (props: any) => {
                     x: {
                         show: false
                     }
-                },
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }]
+                }
+                // responsive: [{
+                //     breakpoint: 350,
+                //     options: {
+                //         chart: {
+                //             width: 350
+                //         },
+                //         legend: {
+                //             position: 'right'
+                //         }
+                //     }
+                // }]
             },
     
         })
@@ -135,7 +135,8 @@ export const CategoryChart = (props: any) => {
                 options={chartoptions.options}
                 series={chartoptions.series}
                 type="polarArea"
-                width="350"
+                width={props.width}
+                height={props.height}
             />
         </>
     )

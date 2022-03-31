@@ -10,6 +10,7 @@
     "@types/react-router": "^5.1.8",
     "@types/react-router-dom": "^5.1.6",
     "apexcharts": "^3.28.1",
+    "mdb-react-ui-kit": "^3.0.0",
     "mdb-ui-kit": "^3.0.0",
     "mdbootstrap": "^4.19.2",
     "mdbreact": "^5.0.2",

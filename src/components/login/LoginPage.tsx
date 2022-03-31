@@ -10,6 +10,9 @@ import {
 } from "mdbreact";
 import logo from '../../assets/images/loginImage.png';
 import { authToken } from '../../services/auth'
+import logolarge from "../../assets/images/small-logo.png"
+import logo1 from "../../assets/images/logo-large.png"
+import loginbck from "../../assets/images/loginbck.png"
 
 
 export const LoginPage = (props: any) => {
@@ -41,8 +44,8 @@ export const LoginPage = (props: any) => {
     }
 
     const Login = () => {
-        // console.log(email)
-        // console.log(password)
+        console.log(email)
+        console.log(password)
         authToken()
         const requestHeaders = {
             method: 'POST',
@@ -74,20 +77,28 @@ export const LoginPage = (props: any) => {
     return (
         <MDBContainer fluid>
             <MDBRow style={{ height: "100vh" }}> 
-                <MDBCol xs="1" sm="2" md="3" lg="4" style={{ backgroundColor: "#2bbbad", opacity: "0.7", height: "100vh"}}>
+                <MDBCol xs="1" sm="2" md="3" lg="4" style={{ backgroundColor: "rgb(0 227 170 / 15%)", opacity: "1", height: "100vh"}}>
+                    {/* <div>
+                        <img src={logo1} alt="Amazon Glacier" style={{ width: "300px", marginLeft: "20px" }} />
+                    </div>
+                    <div>
+                        <img src={loginbck} alt="Amazon Glacier" style={{ width: "300px", marginLeft: "20px" }} />
+                    </div> */}
                 </MDBCol>
                 <MDBCol xs="11" sm="10" md="9" lg="8" >
-                    <MDBContainer style={{ marginTop: "20vh", marginLeft: "8vh"  }}>
+                    <MDBContainer style={{ marginTop: "15vh", marginLeft: "8vh"  }}>
+                    <img src={logolarge} style={{ width: "100px", marginLeft: "20px" }} />
+                    <br />
                         <MDBRow>
-                        <p style={{ marginBottom: "10vh", fontWeight: 700 }} className="h1 text-center"><span style={{fontWeight: 600, fontSize: "45px" }}>L</span>ogin to Watcher</p>
+                        <p style={{ marginBottom: "10vh", fontWeight: 700 }} className="h1 text-center"><span style={{fontWeight: 600, fontSize: "45px" }}>W</span>elcome to Watcher!</p>
                         </MDBRow>
                         <MDBRow>
-                            <MDBCol md="5">
+                            <MDBCol md="6">
                                 <form>
                                     <div className="grey-text">
-                                        <MDBInput label="Type your username" icon="envelope" group type="email" validate error="wrong"
+                                        <MDBInput label="Username" icon="user" group type="email" validate error="wrong"
                                             value={email} onChange={e => setEmail((e.target as any).value)} success="right" />
-                                        <MDBInput label="Type your password" icon="lock" group type="password" validate
+                                        <MDBInput label="Password" icon="lock" group type="password" validate
                                             value={password} onChange={e => setPassword((e.target as any).value)} />
                                     </div>
                                     <div>
@@ -96,8 +107,41 @@ export const LoginPage = (props: any) => {
                                     </div>
                                     {validCred === "false" ? <p style={{fontSize: "12px", color: "red"}}>{(response as any).message}</p> : <p></p>
                                     }
-                                    <p style={{ marginTop: "5vh" }} className="mb-4">Unable to login ? <a onClick={getInTouch} style={{ textDecoration: "underline"}}>Contact us</a></p>
+                                    {/* <p style={{ marginTop: "5vh" }} className="mb-4">Unable to login ? <a onClick={getInTouch} style={{ textDecoration: "underline"}}>Contact us</a></p> */}
                                 </form>
+
+
+                                {/* <form>
+                                    <label htmlFor="defaultFormLoginEmailEx" className="grey-text">
+                                    Your email
+                                    </label>
+                                    <input
+                                    type="email"
+                                    pattern="[a-z]{2,}$"
+                                    id="defaultFormLoginEmailEx"
+                                    className="form-control"
+                                    value={email} 
+                                    onChange={e => setEmail((e.target as any).value)}
+                                    />
+                                    <br />
+                                    <label htmlFor="defaultFormLoginPasswordEx" className="grey-text">
+                                    Your password
+                                    </label>
+                                    <input
+                                    type="password"
+                                    id="defaultFormLoginPasswordEx"
+                                    className="form-control"
+                                    value={password}
+                                    onChange={e => setPassword((e.target as any).value)}
+                                    />
+                                    <div className="mt-4">
+                                    <MDBBtn onClick={() => Login()} className="loginButton" type="submit">
+                                        Login
+                                    </MDBBtn>
+                                    </div>
+                                    {validCred === "false" ? <p style={{fontSize: "12px", color: "red"}}>{(response as any).message}</p> : <p></p>
+                                    }
+                                </form> */}
                             </MDBCol>
                         </MDBRow>
                     </MDBContainer>

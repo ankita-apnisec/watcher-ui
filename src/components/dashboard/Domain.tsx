@@ -30,6 +30,7 @@ import { useHistory } from "react-router";
 import { Chart } from "react-google-charts";
 import "./style.css";
 import { fetchData } from '../../services/apiConfig'
+import { AccountsSelector } from "./AccountsSelector";
 export const Domain = (props: any) => {
     console.log(props)
     const [domains, setDomain] = useState({
@@ -39,11 +40,21 @@ export const Domain = (props: any) => {
         domains: [],
         reachableDomains: 2
     });
+    let sortingDomains: any
+    const [sortedDomains, setSortedDomains] = useState([])
 
     useEffect(() => {
         fetchData('domain', 'GET', "?accountName=" + props.Account).then((res: any) => {
             console.log(res)
+            sortingDomains= res.domains.sort((a:any, b:any) => {
+                if(a.totalIssues > b.totalIssues) {
+                    return -1
+                } else {
+                    return 1
+                } 
+            })
             setDomain(res)
+            setSortedDomains(sortingDomains)
         })
     }, []);
     useEffect(() => {
@@ -51,7 +62,16 @@ export const Domain = (props: any) => {
         if (props.Account.length > 10) {
             fetchData('domain', 'GET', "?accountName=" + props.Account).then((res: any) => {
                 console.log(res)
+                sortingDomains= res.domains.sort((a:any, b:any) => {
+                    if(a.totalIssues > b.totalIssues) {
+                        return -1
+                    } else {
+                        return 1
+                    } 
+                })
                 setDomain(res)
+                console.log(sortedDomains)
+                setSortedDomains(sortingDomains)
             })
         }
     }, [props.Account]);
@@ -74,12 +94,23 @@ export const Domain = (props: any) => {
                 <MDBRow>
                     <MDBCol sm="11" md="11" lg="11" style={{ padding: "0px" }}>
                         <MDBBreadcrumb >
-                            <MDBBtn className="back" onClick={() => props.SwitchView('assets')} color="blue-grey" style={{ border: "2px solid blue-grey", borderRadius: "5px", marginLeft: "0px !important", fontSize: "8px !important" }}>
-                                <MDBIcon icon="arrow-left" style={{ fontSize: "8px" }} /> Back</MDBBtn>
-                            <MDBBreadcrumbItem>assets</MDBBreadcrumbItem>
+                        <MDBBtn className="float-left" 
+                            color="dark"
+                            onClick={() => props.SwitchView('home')}
+                            style={{ border: "2px solid blue-grey", borderRadius: "10px" }}>
+                            <MDBIcon fas icon="angle-left" style={{ fontSize: "15px", marginLeft: "3px" }} />
+                            &nbsp;&nbsp; Go back to dashboard&nbsp;&nbsp;
+                        </MDBBtn>
+                            {/* <MDBBtn className="back" onClick={() => props.SwitchView('assets')} color="blue-grey" style={{ border: "2px solid blue-grey", borderRadius: "5px", marginLeft: "0px !important", fontSize: "8px !important" }}>
+                                <MDBIcon icon="arrow-left" style={{ fontSize: "8px" }} /> Back</MDBBtn> */}
+                            <MDBBreadcrumbItem onClick={() => props.SwitchView('home')} style={{ cursor: "pointer", marginLeft: "20px" }} >dashboard</MDBBreadcrumbItem>
+                            <MDBBreadcrumbItem onClick={() => props.SwitchView('assets')} style={{ cursor: "pointer" }}>assets</MDBBreadcrumbItem>
                             <MDBBreadcrumbItem active>domains</MDBBreadcrumbItem>
                         </MDBBreadcrumb>
                     </MDBCol>
+                </MDBRow>
+                <MDBRow>
+                <AccountsSelector Account={props.Account} AccountToggle={props.AccountToggle} />
                 </MDBRow>
                 <br />
                 <MDBRow>
@@ -117,18 +148,18 @@ export const Domain = (props: any) => {
                 <br /> <br />
                 <MDBRow >
                     <MDBCol sm="11" md="11" lg="11" style={{ padding: "10px 25px", border: "1px solid #ededef" }}>
-                        <div style={{ maxHeight: "70vh", overflowY: "auto", overflowX: "hidden" }}>
+                        <div style={{ maxHeight: "48vh", overflowY: "auto", overflowX: "hidden" }}>
                             <MDBRow className="awsRow">
 
                                 {
-                                    domains.domains.map((dom: any) =>
+                                    sortedDomains.map((dom: any) =>
                                         <>
                                             <MDBCol className="domainList" sm="3" md="3" lg="3" onClick={() => SubDomainSwitch(dom.domainName) }>
                                                 <div className="domainCard">
-                                                <MDBBadge className="DomainBadge" color="light">{dom.totalIssues} issues</MDBBadge> 
+                                                <MDBBadge className="DomainBadge" color={dom.totalIssues > 0 ? "danger" : "success"}>{dom.totalIssues} issues</MDBBadge> 
                                                     <p style={{ fontSize: "12px", color: "chocolate" }}></p>
                                                     <p className='text-dark font-weight-bold' style={{ fontSize: "20px", marginBlockEnd: "0px" }}>{dom.domainName}</p>
-                                                    <span style={{ fontSize: "12px", color: "#dc3912", fontWeight: 600 }}>{dom.totalCriticalIssues} critical issues</span>
+                                                    {/* <span style={{ fontSize: "12px", color: "#dc3912", fontWeight: 600 }}>{dom.totalCriticalIssues} critical issues</span> */}
                                                 </div>
                                             </MDBCol>
                                             <MDBCol sm="1" md="1" lg="1" ></MDBCol>
